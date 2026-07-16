@@ -1,58 +1,707 @@
-Luminor Library
-Простая, быстрая и стильная библиотека интерфейса для твоих скриптов
-1 Инициализация библиотеки
-Вставь этот код в самый верх своего скрипта, чтобы подключить библиотеку LuminorLib к проекту:
-Lua
-Копировать
-local LuminorLib = loadstring(game:HttpGet("ТВОЯ_ССЫЛКА_НА_БИБЛИОТЕКУ_ЗДЕСЬ"))()
-2 Создание главного окна и вкладки
-Здесь настраивается внешний вид UI. Мы создаем ровно одну вкладку Tab1, чтобы не перегружать интерфейс:
-Lua
-Копировать
-local Window = LuminorLib:CreateWindow("LUMINOR", "LuminorLib_UI", "By DADILK")
-local Tab1 = Window:CreateTab("⚔️ Главное")
-Параметры функции CreateWindow по порядку:
-	•	"LUMINOR" — Главный заголовок (Title), который плавно переливается сверху меню.
-	•	"LuminorLib_UI" — Уникальное системное имя GUI (нужно для защиты от обнаружения).
-	•	"By DADILK" — Вотермарка (Watermark) в левом нижнем углу меню.
-3 Добавление функций на вкладку Tab1
-Шаблон создания элементов интерфейса. Ниже показано, в какое место нужно вставлять твой рабочий скрипт:
-Lua
-Копировать
--- 1. Добавление переключателя (Toggle)
-Tab1:CreateToggle("Авто-Фарм", "Purple", false, function(state)
-    if state then
-        -- [ВСТАВЛЯЙ КОД ДЛЯ ВКЛЮЧЕНИЯ СЮДА]
-        print("Авто-фарм включен!")
-    else
-        -- [ВСТАВЛЯЙ КОД ДЛЯ ВЫКЛЮЧЕНИЯ СЮДА]
-        print("Авто-фарм выключен!")
-    end
-})
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LuminorGui – документация V1.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
--- 2. Добавление кнопки (Button)
-Tab1:CreateButton("Телепортироваться", function()
-    -- [ВСТАВЛЯЙ СВОЙ РАБОЧИЙ КОД КНОПКИ СЮДА]
-    print("Телепортация выполнена!")
-})
-4 Встроенная палитра цветов для тогла
-Вместо сложных Color3.fromRGB(...) теперь можно просто писать название цвета строкой во втором параметре тоггла:
+        :root {
+            /* Переменные для палитры ячеек */
+            --clr-purple: #c084fc;
+            --clr-red: #ff5555;
+            --clr-green: #55ff7f;
+            --clr-blue: #55aaff;
+            --clr-yellow: #ffff7f;
+            --clr-orange: #ffa600;
+            --clr-pink: #ff69b4;
+            --clr-white: #ffffff;
+            --clr-cyan: #00ffff;
+        }
 
-"Purple"
+        body {
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Press Start 2P', 'Courier New', monospace;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-"Red"
+        /* ----- ФОНОВЫЕ ЛЕТАЮЩИЕ ЧАСТИЦЫ ----- */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            font-family: 'Press Start 2P', monospace;
+            color: #ff69b4;
+            text-shadow: 0 0 8px rgba(255, 105, 180, 0.8), 0 0 20px rgba(255, 105, 180, 0.4);
+            opacity: 0;
+            user-select: none;
+            will-change: transform, opacity;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: var(--op);
+            }
+            90% {
+                opacity: var(--op);
+            }
+            100% {
+                transform: translateY(-10vh) translateX(var(--drift)) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
 
-"Green"
+        .window {
+            width: 880px;
+            max-width: 100%;
+            background: #0a0a0a;
+            border: 2px solid #2a2a2a;
+            box-shadow: 0 0 30px rgba(192, 132, 252, 0.08);
+            padding: 24px 28px 20px;
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            animation: windowAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: relative;
+            z-index: 1;
+        }
 
-"Blue"
+        @keyframes windowAppear {
+            0% { opacity: 0; transform: translateY(30px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
 
-"Yellow"
+        /* ----- HEADER ----- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 14px;
+            margin-bottom: 22px;
+        }
+        .brand {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .brand .title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 28px;
+            color: #c084fc;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(192, 132, 252, 0.15);
+            transition: text-shadow 0.4s;
+        }
+        .brand .title:hover {
+            text-shadow: 0 0 40px rgba(192, 132, 252, 0.4);
+        }
+        .brand .badge {
+            color: #4a4a4a;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .brand .version {
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 400;
+        }
 
-"Orange"
+        /* ----- НАВИГАЦИЯ ПО ГЛАВАМ ----- */
+        .doc-nav {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #141414;
+            padding-bottom: 14px;
+        }
+        .doc-nav .chapter-btn {
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            padding: 6px 14px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        .doc-nav .chapter-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #c084fc;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(-50%);
+        }
+        .doc-nav .chapter-btn:hover {
+            color: #d1d5db;
+            background: #141414;
+        }
+        .doc-nav .chapter-btn.active {
+            color: #c084fc;
+            background: #1a1a1a;
+        }
+        .doc-nav .chapter-btn.active::after {
+            width: 60%;
+        }
 
-"Pink"
+        /* ----- ГЛАВЫ ----- */
+        .chapter {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            animation: chapterFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .chapter.active {
+            display: flex;
+        }
 
-"White"
+        @keyframes chapterFade {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
-"Cyan"
-© 2026 Luminor Library. Разработано DADILK
+        .chapter h2 {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            border-left: 4px solid #c084fc;
+            padding-left: 14px;
+            font-family: 'Press Start 2P', monospace;
+        }
+        .chapter p {
+            color: #e5e7eb;
+            line-height: 1.8;
+            font-size: 13px;
+            font-family: 'Press Start 2P', monospace;
+            font-weight: 300;
+        }
+        .chapter p code {
+            background: #1a1a1a;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #c084fc;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 12px;
+        }
+
+        /* ----- СЕТКА ЦВЕТОВ (БЛОК ЯЧЕЕК) ----- */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+            gap: 10px;
+            margin: 18px 0;
+        }
+        .color-cell {
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            padding: 12px 6px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .color-cell:hover {
+            border-color: currentColor;
+            box-shadow: 0 0 15px currentColor;
+            transform: translateY(-2px);
+        }
+        .color-box {
+            width: 16px;
+            height: 16px;
+            margin: 0 auto 10px;
+            border: 1px solid #000;
+            box-shadow: 0 0 10px currentColor;
+        }
+        .color-label {
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: block;
+        }
+
+        /* ----- БЛОКИ КОДА ----- */
+        .code-block {
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            padding: 16px 18px;
+            position: relative;
+            overflow: auto;
+            transition: border-color 0.4s, box-shadow 0.4s;
+        }
+        .code-block:hover {
+            border-color: #2a2a2a;
+            box-shadow: 0 0 30px rgba(192, 132, 252, 0.04);
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Ubuntu Mono', 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            color: #e5e7eb;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .code-block .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            background: #141414;
+            border: 1px solid #2a2a2a;
+            color: #9ca3af;
+            padding: 4px 14px;
+            font-size: 10px;
+            font-family: 'Press Start 2P', monospace;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .code-block .copy-btn:hover {
+            background: #1f1f1f;
+            border-color: #c084fc;
+            color: #c084fc;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(192, 132, 252, 0.1);
+        }
+        .code-block .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ----- СИНТАКСИС ----- */
+        .syn-keyword   { color: #fbbf24; }
+        .syn-string    { color: #34d399; }
+        .syn-comment   { color: #6b7280; }
+        .syn-number    { color: #f472b6; }
+        .syn-function  { color: #60a5fa; }
+        .syn-variable  { color: #e5e7eb; }
+        .syn-operator  { color: #fbbf24; }
+        .syn-color     { color: #c084fc; }
+
+        /* ----- НАВИГАЦИЯ ВНИЗУ ----- */
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 2px solid #141414;
+        }
+        .nav-footer .nav-btn {
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-footer .nav-btn:hover {
+            color: #c084fc;
+            background: #141414;
+            transform: translateX(0);
+        }
+        .nav-footer .nav-btn:active {
+            transform: scale(0.95);
+        }
+        .nav-footer .nav-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+            transition: transform 0.3s;
+        }
+        .nav-footer .nav-btn:hover svg {
+            transform: translateX(0);
+        }
+        .nav-footer .nav-btn:first-child:hover svg {
+            transform: translateX(-3px);
+        }
+        .nav-footer .nav-btn:last-child:hover svg {
+            transform: translateX(3px);
+        }
+        .nav-footer .chapter-indicator {
+            color: #4a4a4a;
+            font-size: 12px;
+            font-family: 'Press Start 2P', monospace;
+            transition: color 0.3s;
+        }
+        .nav-footer .chapter-indicator span {
+            color: #c084fc;
+            transition: color 0.3s;
+        }
+
+        /* адаптив */
+        @media (max-width: 700px) {
+            .window { padding: 16px; }
+            .doc-nav .chapter-btn { font-size: 9px; padding: 4px 8px; }
+            .chapter h2 { font-size: 14px; }
+            .brand .title { font-size: 20px; }
+            .color-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Контейнер для летающего фона -->
+<div class="bg-particles" id="bgParticles"></div>
+
+<div class="window">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="brand">
+            <span class="title">Luminor</span>
+            <span class="badge">GUI</span>
+            <span class="version">V1.0</span>
+        </div>
+        <div style="color:#4a4a4a; font-size:10px; font-family:'Press Start 2P',monospace;">документация</div>
+    </div>
+
+    <!-- НАВИГАЦИЯ ПО ГЛАВАМ -->
+    <div class="doc-nav" id="chapterNav">
+        <button class="chapter-btn active" data-chapter="0">Загрузчик</button>
+        <button class="chapter-btn" data-chapter="1">Окно</button>
+        <button class="chapter-btn" data-chapter="2">Вкладки</button>
+        <button class="chapter-btn" data-chapter="3">Тогглы</button>
+        <button class="chapter-btn" data-chapter="4">Кнопки</button>
+        <button class="chapter-btn" data-chapter="5">Полный код</button>
+    </div>
+
+    <!-- КОНТЕЙНЕР ГЛАВ -->
+    <div id="chaptersContainer">
+        <!-- Глава 0: Загрузчик -->
+        <div class="chapter active" data-chapter="0">
+            <h2>Установка (загрузчик)</h2>
+            <p>
+                Подключите библиотеку через <code>loadstring</code>, указав прямую ссылку на
+                <strong>raw</strong>‑версию файла с GitHub.
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="0">Копировать</button>
+                <pre id="code0"><span class="syn-keyword">local</span> LuminorGui <span class="syn-operator">=</span> <span class="syn-function">loadstring</span>(<span class="syn-function">game</span>.<span class="syn-function">HttpGet</span>(<span class="syn-string">"https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"</span>))()</pre>
+            </div>
+            <p>
+                <span style="color:#6b7280;">💡</span> Требуется доступ к <code>game:HttpGet</code>.
+                Библиотека совместима с большинством исполнителей.
+            </p>
+        </div>
+
+        <!-- Глава 1: Окно -->
+        <div class="chapter" data-chapter="1">
+            <h2>Создание главного окна</h2>
+            <p>
+                <code>CreateWindow(title, uiName, watermark)</code> – возвращает объект окна.
+                <br /><strong>Параметры:</strong>
+                <br />• <code>title</code> – заголовок (неоновая анимация)
+                <br />• <code>uiName</code> – имя ScreenGui (опционально)
+                <br />• <code>watermark</code> – текст внизу (по умолч. "By DADILK")
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="1">Копировать</button>
+                <pre id="code1"><span class="syn-keyword">local</span> Window <span class="syn-operator">=</span> LuminorGui.<span class="syn-function">CreateWindow</span>(<span class="syn-string">"Моё меню"</span>, <span class="syn-string">"MyUI"</span>, <span class="syn-string">"Пример"</span>)</pre>
+            </div>
+            <p>
+                Окно имеет кнопки <strong>свернуть</strong> / <strong>закрыть</strong> и
+                изменение размера перетаскиванием за угол.
+            </p>
+        </div>
+
+        <!-- Глава 2: Вкладки -->
+        <div class="chapter" data-chapter="2">
+            <h2>Создание вкладок (Tabs)</h2>
+            <p>
+                <code>Window:CreateTab(iconText)</code> – добавляет вкладку в боковое меню.
+                <br /><code>iconText</code> – любой текст или эмодзи.
+                <br />Возвращает объект для добавления элементов.
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="2">Копировать</button>
+                <pre id="code2"><span class="syn-keyword">local</span> Tab1 <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"📁 Главная"</span>)
+<span class="syn-keyword">local</span> Tab2 <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"⚙️ Настройки"</span>)</pre>
+            </div>
+            <p>
+                Вкладки переключаются по клику, содержимое каждой в отдельном <code>ScrollingFrame</code>.
+            </p>
+        </div>
+
+        <!-- Глава 3: Тогглы -->
+        <div class="chapter" data-chapter="3">
+            <h2>Переключатели (Toggle)</h2>
+            <p>
+                <code>Tab:CreateToggle(text, neonColor, defaultState, callback)</code>
+                <br />• <code>text</code> – подпись
+                <br />• <code>neonColor</code> – цвет подсветки (строка из палитры ниже или объект <code>Color3</code>)
+                <br />• <code>defaultState</code> – <code>true</code> / <code>false</code>
+                <br />• <code>callback</code> – функция, принимает новое состояние
+            </p>
+
+            <!-- БЛОК ЯЧЕЕК (ПАЛИТРА ЦВЕТОВ) -->
+            <div class="color-grid">
+                <div class="color-cell" style="color: var(--clr-purple)"><div class="color-box" style="background-color: var(--clr-purple)"></div><span class="color-label">"Purple"</span></div>
+                <div class="color-cell" style="color: var(--clr-red)"><div class="color-box" style="background-color: var(--clr-red)"></div><span class="color-label">"Red"</span></div>
+                <div class="color-cell" style="color: var(--clr-green)"><div class="color-box" style="background-color: var(--clr-green)"></div><span class="color-label">"Green"</span></div>
+                <div class="color-cell" style="color: var(--clr-blue)"><div class="color-box" style="background-color: var(--clr-blue)"></div><span class="color-label">"Blue"</span></div>
+                <div class="color-cell" style="color: var(--clr-yellow)"><div class="color-box" style="background-color: var(--clr-yellow)"></div><span class="color-label">"Yellow"</span></div>
+                <div class="color-cell" style="color: var(--clr-orange)"><div class="color-box" style="background-color: var(--clr-orange)"></div><span class="color-label">"Orange"</span></div>
+                <div class="color-cell" style="color: var(--clr-pink)"><div class="color-box" style="background-color: var(--clr-pink)"></div><span class="color-label">"Pink"</span></div>
+                <div class="color-cell" style="color: var(--clr-white)"><div class="color-box" style="background-color: var(--clr-white)"></div><span class="color-label">"White"</span></div>
+                <div class="color-cell" style="color: var(--clr-cyan)"><div class="color-box" style="background-color: var(--clr-cyan)"></div><span class="color-label">"Cyan"</span></div>
+            </div>
+
+            <div class="code-block">
+                <button class="copy-btn" data-code="3">Копировать</button>
+                <pre id="code3">Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"Включить режим"</span>, <span class="syn-string">"Purple"</span>, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(state)
+    <span class="syn-function">print</span>(<span class="syn-string">"Состояние:"</span>, state)
+<span class="syn-keyword">end</span>)</pre>
+            </div>
+            <p>
+                При клике меняет цвет текста, показывает неоновую линию снизу и вызывает колбэк.
+            </p>
+        </div>
+
+        <!-- Глава 4: Кнопки -->
+        <div class="chapter" data-chapter="4">
+            <h2>Обычные кнопки (Button)</h2>
+            <p>
+                <code>Tab:CreateButton(text, callback)</code>
+                <br />• <code>text</code> – надпись на кнопке
+                <br />• <code>callback</code> – функция при клике
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="4">Копировать</button>
+                <pre id="code4">Tab1:<span class="syn-function">CreateButton</span>(<span class="syn-string">"Нажми меня"</span>, <span class="syn-keyword">function</span>()
+    <span class="syn-function">print</span>(<span class="syn-string">"Кнопка нажата!"</span>)
+<span class="syn-keyword">end</span>)</pre>
+            </div>
+            <p>
+                Кнопки не имеют состояния, просто выполняют действие.
+            </p>
+        </div>
+
+        <!-- Глава 5: Полный пример (исправлен) -->
+        <div class="chapter" data-chapter="5">
+            <h2>Готовый скрипт</h2>
+            <p>
+                Полный рабочий код с тремя вкладками, в каждой тоггл и кнопка.
+                Цвета подобраны для наглядности. <strong>Убедитесь, что ваша версия библиотеки поддерживает <code>CreateButton</code>.</strong>
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="5">Копировать</button>
+                <pre id="code5"><span class="syn-comment">-- Загружаем библиотеку</span>
+<span class="syn-keyword">local</span> LuminorGui <span class="syn-operator">=</span> <span class="syn-function">loadstring</span>(<span class="syn-function">game</span>.<span class="syn-function">HttpGet</span>(<span class="syn-string">"https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"</span>))()
+
+<span class="syn-comment">-- Создаём окно</span>
+<span class="syn-keyword">local</span> Window <span class="syn-operator">=</span> LuminorGui.<span class="syn-function">CreateWindow</span>(<span class="syn-string">"test"</span>)
+
+<span class="syn-comment">-- Вкладки</span>
+<span class="syn-keyword">local</span> Tab1 <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"test 1"</span>)
+<span class="syn-keyword">local</span> Tab2 <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"test 2"</span>)
+<span class="syn-keyword">local</span> Tab3 <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"test 3"</span>)
+
+<span class="syn-comment">-- Tab1</span>
+Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"test"</span>, <span class="syn-string">"Orange"</span>, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) <span class="syn-function">print</span>(<span class="syn-string">"Оранжевый:"</span>, s) <span class="syn-keyword">end</span>)
+Tab1:<span class="syn-function">CreateButton</span>(<span class="syn-string">"test"</span>, <span class="syn-keyword">function</span>() <span class="syn-function">print</span>(<span class="syn-string">"Кнопка Tab1"</span>) <span class="syn-keyword">end</span>)
+
+<span class="syn-comment">-- Tab2</span>
+Tab2:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"test"</span>, <span class="syn-string">"White"</span>, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) <span class="syn-function">print</span>(<span class="syn-string">"Белый:"</span>, s) <span class="syn-keyword">end</span>)
+Tab2:<span class="syn-function">CreateButton</span>(<span class="syn-string">"test"</span>, <span class="syn-keyword">function</span>() <span class="syn-function">print</span>(<span class="syn-string">"Кнопка Tab2"</span>) <span class="syn-keyword">end</span>)
+
+<span class="syn-comment">-- Tab3</span>
+Tab3:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"test"</span>, <span class="syn-string">"Purple"</span>, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) <span class="syn-function">print</span>(<span class="syn-string">"Фиолетовый:"</span>, s) <span class="syn-keyword">end</span>)
+Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"test"</span>, <span class="syn-keyword">function</span>() <span class="syn-function">print</span>(<span class="syn-string">"Кнопка Tab3"</span>) <span class="syn-keyword">end</span>)</pre>
+            </div>
+            <p>
+                Скопируйте и вставьте в свой скрипт – интерфейс появится сразу.
+                Если <code>CreateButton</code> отсутствует, обновите библиотеку или замените на <code>CreateToggle</code> с фиктивным состоянием.
+            </p>
+        </div>
+    </div>
+
+    <!-- НАВИГАЦИЯ ВНИЗУ -->
+    <div class="nav-footer">
+        <button class="nav-btn" id="prevChapter">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            Назад
+        </button>
+        <div class="chapter-indicator">Глава <span id="currentChapterNum">1</span> / <span id="totalChapters">6</span></div>
+        <button class="nav-btn" id="nextChapter">
+            Вперёд
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        // Инициализация летающих букв LN в фоне
+        const bgContainer = document.getElementById('bgParticles');
+        const particleCount = 18; // Оптимальное количество частиц, чтобы не рябило в глазах
+
+        function createParticle(init = false) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.textContent = 'LN';
+            
+            const size = Math.random() * 16 + 8; // Размер от 8px до 24px
+            const left = Math.random() * 100; // Позиция по ширине
+            const duration = Math.random() * 12 + 10; // Скорость полета от 10s до 22s
+            const delay = init ? -(Math.random() * duration) : 0; // Исключает появление всех частиц одновременно на старте
+            const drift = (Math.random() * 120 - 60) + 'px'; // Смещение по горизонтали во время полета
+            const rot = (Math.random() * 360) + 'deg'; // Угол вращения
+            const op = (Math.random() * 0.20 + 0.05); // Прозрачность (от 0.05 до 0.25 для фонового стиля)
+
+            p.style.fontSize = size + 'px';
+            p.style.left = left + '%';
+            p.style.animationDuration = duration + 's';
+            p.style.animationDelay = delay + 's';
+            p.style.setProperty('--drift', drift);
+            p.style.setProperty('--rot', rot);
+            p.style.setProperty('--op', op);
+
+            bgContainer.appendChild(p);
+
+            // Перенастройка параметров при каждом новом цикле анимации
+            p.addEventListener('animationiteration', () => {
+                p.style.left = Math.random() * 100 + '%';
+                p.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
+                p.style.setProperty('--rot', (Math.random() * 360) + 'deg');
+                p.style.setProperty('--op', (Math.random() * 0.20 + 0.05));
+            });
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            createParticle(true);
+        }
+
+        // Остальная логика сайта
+        const chapters = document.querySelectorAll('.chapter');
+        const navBtns = document.querySelectorAll('.chapter-btn');
+        const prevBtn = document.getElementById('prevChapter');
+        const nextBtn = document.getElementById('nextChapter');
+        const currentSpan = document.getElementById('currentChapterNum');
+        const totalSpan = document.getElementById('totalChapters');
+        const copyBtns = document.querySelectorAll('.copy-btn');
+
+        let currentIndex = 0;
+        const total = chapters.length;
+        totalSpan.textContent = total;
+
+        function setChapter(index) {
+            if (index < 0 || index >= total) return;
+            currentIndex = index;
+
+            chapters.forEach((ch, i) => {
+                ch.classList.toggle('active', i === index);
+                if (i === index) {
+                    ch.style.animation = 'none';
+                    requestAnimationFrame(() => {
+                        ch.style.animation = 'chapterFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both';
+                    });
+                }
+            });
+
+            navBtns.forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+
+            currentSpan.textContent = index + 1;
+        }
+
+        navBtns.forEach((btn) => {
+            btn.addEventListener('click', function() {
+                const idx = parseInt(this.dataset.chapter, 10);
+                setChapter(idx);
+            });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) setChapter(currentIndex - 1);
+        });
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < total - 1) setChapter(currentIndex + 1);
+        });
+
+        copyBtns.forEach((btn) => {
+            btn.addEventListener('click', function() {
+                const codeId = this.dataset.code;
+                const pre = document.getElementById('code' + codeId);
+                if (!pre) return;
+                const text = pre.textContent;
+
+                const copyFn = (method) => {
+                    method(text).then(() => {
+                        showCopyFeedback(this);
+                    }).catch(() => fallbackCopy(text));
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    copyFn(navigator.clipboard.writeText.bind(navigator.clipboard));
+                } else {
+                    fallbackCopy(text);
+                }
+            });
+        });
+
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showCopyFeedback(document.activeElement);
+        }
+
+        function showCopyFeedback(btn) {
+            const orig = btn.textContent;
+            btn.textContent = '✅';
+            btn.style.borderColor = '#34d399';
+            btn.style.color = '#34d399';
+            setTimeout(() => {
+                btn.textContent = orig;
+                btn.style.borderColor = '#2a2a2a';
+                btn.style.color = '#9ca3af';
+            }, 2000);
+        }
+
+        setChapter(0);
+    })();
+</script>
+</body>
+</html>
