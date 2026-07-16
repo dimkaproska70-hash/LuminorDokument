@@ -23,6 +23,8 @@
             --clr-pink: #ff69b4;
             --clr-white: #ffffff;
             --clr-cyan: #00ffff;
+            /* цвет тогла по умолчанию */
+            --toggle-color: #c084fc;
         }
 
         body {
@@ -230,11 +232,17 @@
             padding: 12px 6px;
             text-align: center;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
         }
         .color-cell:hover {
             border-color: currentColor;
             box-shadow: 0 0 15px currentColor;
             transform: translateY(-2px);
+        }
+        .color-cell.active {
+            border-color: currentColor;
+            box-shadow: 0 0 25px currentColor, inset 0 0 15px currentColor;
+            transform: scale(1.02);
         }
         .color-box {
             width: 16px;
@@ -249,6 +257,79 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             display: block;
+        }
+
+        /* ----- ДЕМО-ТОГГЛ (интерактивный) ----- */
+        .demo-toggle-container {
+            margin: 20px 0 10px;
+            padding: 18px 20px;
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+        .demo-toggle {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            user-select: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .demo-toggle:hover {
+            background: #141414;
+        }
+        .demo-toggle-label {
+            color: #e5e7eb;
+            font-size: 13px;
+            font-family: 'Press Start 2P', monospace;
+            letter-spacing: 0.5px;
+        }
+        .demo-toggle-indicator {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid #4a4a4a;
+            background: #1a1a1a;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 6px rgba(0,0,0,0.6);
+            flex-shrink: 0;
+        }
+        .demo-toggle.active .demo-toggle-indicator {
+            background: var(--toggle-color, #c084fc);
+            border-color: var(--toggle-color, #c084fc);
+            box-shadow: 0 0 20px var(--toggle-color, #c084fc);
+        }
+        .demo-toggle-state {
+            color: #6b7280;
+            font-size: 11px;
+            font-family: 'Press Start 2P', monospace;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+        .demo-toggle-state.active {
+            color: var(--toggle-color, #c084fc);
+        }
+        .demo-toggle-color-label {
+            color: #9ca3af;
+            font-size: 10px;
+            font-family: 'Ubuntu Mono', monospace;
+            padding: 4px 10px;
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            background: #0a0a0a;
+            transition: all 0.3s;
+        }
+        .demo-toggle-color-label span {
+            color: var(--toggle-color, #c084fc);
+            font-weight: 700;
         }
 
         /* ----- БЛОКИ КОДА ----- */
@@ -372,6 +453,8 @@
             .chapter h2 { font-size: 14px; }
             .brand .title { font-size: 20px; }
             .color-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+            .demo-toggle-container { flex-direction: column; align-items: stretch; }
+            .demo-toggle { justify-content: center; }
         }
     </style>
 </head>
@@ -471,15 +554,25 @@
 
             <!-- БЛОК ЯЧЕЕК (ПАЛИТРА ЦВЕТОВ) -->
             <div class="color-grid">
-                <div class="color-cell" style="color: var(--clr-purple)"><div class="color-box" style="background-color: var(--clr-purple)"></div><span class="color-label">"Purple"</span></div>
-                <div class="color-cell" style="color: var(--clr-red)"><div class="color-box" style="background-color: var(--clr-red)"></div><span class="color-label">"Red"</span></div>
-                <div class="color-cell" style="color: var(--clr-green)"><div class="color-box" style="background-color: var(--clr-green)"></div><span class="color-label">"Green"</span></div>
-                <div class="color-cell" style="color: var(--clr-blue)"><div class="color-box" style="background-color: var(--clr-blue)"></div><span class="color-label">"Blue"</span></div>
-                <div class="color-cell" style="color: var(--clr-yellow)"><div class="color-box" style="background-color: var(--clr-yellow)"></div><span class="color-label">"Yellow"</span></div>
-                <div class="color-cell" style="color: var(--clr-orange)"><div class="color-box" style="background-color: var(--clr-orange)"></div><span class="color-label">"Orange"</span></div>
-                <div class="color-cell" style="color: var(--clr-pink)"><div class="color-box" style="background-color: var(--clr-pink)"></div><span class="color-label">"Pink"</span></div>
-                <div class="color-cell" style="color: var(--clr-white)"><div class="color-box" style="background-color: var(--clr-white)"></div><span class="color-label">"White"</span></div>
-                <div class="color-cell" style="color: var(--clr-cyan)"><div class="color-box" style="background-color: var(--clr-cyan)"></div><span class="color-label">"Cyan"</span></div>
+                <div class="color-cell" style="color: var(--clr-purple)" data-color="#c084fc"><div class="color-box" style="background-color: var(--clr-purple)"></div><span class="color-label">Purple</span></div>
+                <div class="color-cell" style="color: var(--clr-red)" data-color="#ff5555"><div class="color-box" style="background-color: var(--clr-red)"></div><span class="color-label">Red</span></div>
+                <div class="color-cell" style="color: var(--clr-green)" data-color="#55ff7f"><div class="color-box" style="background-color: var(--clr-green)"></div><span class="color-label">Green</span></div>
+                <div class="color-cell" style="color: var(--clr-blue)" data-color="#55aaff"><div class="color-box" style="background-color: var(--clr-blue)"></div><span class="color-label">Blue</span></div>
+                <div class="color-cell" style="color: var(--clr-yellow)" data-color="#ffff7f"><div class="color-box" style="background-color: var(--clr-yellow)"></div><span class="color-label">Yellow</span></div>
+                <div class="color-cell" style="color: var(--clr-orange)" data-color="#ffa600"><div class="color-box" style="background-color: var(--clr-orange)"></div><span class="color-label">Orange</span></div>
+                <div class="color-cell" style="color: var(--clr-pink)" data-color="#ff69b4"><div class="color-box" style="background-color: var(--clr-pink)"></div><span class="color-label">Pink</span></div>
+                <div class="color-cell" style="color: var(--clr-white)" data-color="#ffffff"><div class="color-box" style="background-color: var(--clr-white)"></div><span class="color-label">White</span></div>
+                <div class="color-cell" style="color: var(--clr-cyan)" data-color="#00ffff"><div class="color-box" style="background-color: var(--clr-cyan)"></div><span class="color-label">Cyan</span></div>
+            </div>
+
+            <!-- ИНТЕРАКТИВНЫЙ ДЕМО-ТОГГЛ -->
+            <div class="demo-toggle-container">
+                <div class="demo-toggle" id="demoToggle">
+                    <span class="demo-toggle-label">Демо-переключатель</span>
+                    <span class="demo-toggle-indicator"></span>
+                </div>
+                <div class="demo-toggle-state" id="demoState">Выключен</div>
+                <div class="demo-toggle-color-label">Цвет: <span id="demoColorName">Purple</span></div>
             </div>
 
             <div class="code-block">
@@ -492,6 +585,7 @@ Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"В
             </div>
             <p>
                 При клике меняет цвет текста, показывает неоновую линию снизу и вызывает колбэк.
+                <br><strong>👆 Кликните на цветной квадрат выше</strong> – цвет демо-переключателя изменится.
             </p>
         </div>
 
@@ -576,23 +670,21 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
     (function() {
         'use strict';
 
-        // Инициализация летающих букв LN в фоне
+        // ========== ЛЕТАЮЩИЕ ЧАСТИЦЫ ==========
         const bgContainer = document.getElementById('bgParticles');
-        const particleCount = 18; // Оптимальное количество частиц, чтобы не рябило в глазах
+        const particleCount = 18;
 
         function createParticle(init = false) {
             const p = document.createElement('div');
             p.className = 'particle';
             p.textContent = 'LN';
-            
-            const size = Math.random() * 16 + 8; // Размер от 8px до 24px
-            const left = Math.random() * 100; // Позиция по ширине
-            const duration = Math.random() * 12 + 10; // Скорость полета от 10s до 22s
-            const delay = init ? -(Math.random() * duration) : 0; // Исключает появление всех частиц одновременно на старте
-            const drift = (Math.random() * 120 - 60) + 'px'; // Смещение по горизонтали во время полета
-            const rot = (Math.random() * 360) + 'deg'; // Угол вращения
-            const op = (Math.random() * 0.20 + 0.05); // Прозрачность (от 0.05 до 0.25 для фонового стиля)
-
+            const size = Math.random() * 16 + 8;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 12 + 10;
+            const delay = init ? -(Math.random() * duration) : 0;
+            const drift = (Math.random() * 120 - 60) + 'px';
+            const rot = (Math.random() * 360) + 'deg';
+            const op = (Math.random() * 0.20 + 0.05);
             p.style.fontSize = size + 'px';
             p.style.left = left + '%';
             p.style.animationDuration = duration + 's';
@@ -600,10 +692,7 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
             p.style.setProperty('--drift', drift);
             p.style.setProperty('--rot', rot);
             p.style.setProperty('--op', op);
-
             bgContainer.appendChild(p);
-
-            // Перенастройка параметров при каждом новом цикле анимации
             p.addEventListener('animationiteration', () => {
                 p.style.left = Math.random() * 100 + '%';
                 p.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
@@ -611,12 +700,9 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
                 p.style.setProperty('--op', (Math.random() * 0.20 + 0.05));
             });
         }
+        for (let i = 0; i < particleCount; i++) createParticle(true);
 
-        for (let i = 0; i < particleCount; i++) {
-            createParticle(true);
-        }
-
-        // Остальная логика сайта
+        // ========== НАВИГАЦИЯ ПО ГЛАВАМ ==========
         const chapters = document.querySelectorAll('.chapter');
         const navBtns = document.querySelectorAll('.chapter-btn');
         const prevBtn = document.getElementById('prevChapter');
@@ -632,7 +718,6 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
         function setChapter(index) {
             if (index < 0 || index >= total) return;
             currentIndex = index;
-
             chapters.forEach((ch, i) => {
                 ch.classList.toggle('active', i === index);
                 if (i === index) {
@@ -642,41 +727,28 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
                     });
                 }
             });
-
-            navBtns.forEach((btn, i) => {
-                btn.classList.toggle('active', i === index);
-            });
-
+            navBtns.forEach((btn, i) => btn.classList.toggle('active', i === index));
             currentSpan.textContent = index + 1;
         }
 
         navBtns.forEach((btn) => {
             btn.addEventListener('click', function() {
-                const idx = parseInt(this.dataset.chapter, 10);
-                setChapter(idx);
+                setChapter(parseInt(this.dataset.chapter, 10));
             });
         });
+        prevBtn.addEventListener('click', () => { if (currentIndex > 0) setChapter(currentIndex - 1); });
+        nextBtn.addEventListener('click', () => { if (currentIndex < total - 1) setChapter(currentIndex + 1); });
 
-        prevBtn.addEventListener('click', () => {
-            if (currentIndex > 0) setChapter(currentIndex - 1);
-        });
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < total - 1) setChapter(currentIndex + 1);
-        });
-
+        // ========== КОПИРОВАНИЕ ==========
         copyBtns.forEach((btn) => {
             btn.addEventListener('click', function() {
                 const codeId = this.dataset.code;
                 const pre = document.getElementById('code' + codeId);
                 if (!pre) return;
                 const text = pre.textContent;
-
                 const copyFn = (method) => {
-                    method(text).then(() => {
-                        showCopyFeedback(this);
-                    }).catch(() => fallbackCopy(text));
+                    method(text).then(() => showCopyFeedback(this)).catch(() => fallbackCopy(text));
                 };
-
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     copyFn(navigator.clipboard.writeText.bind(navigator.clipboard));
                 } else {
@@ -708,6 +780,70 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
         }
 
         setChapter(0);
+
+        // ========== ИНТЕРАКТИВНЫЙ ТОГГЛ С ПАЛИТРОЙ ==========
+        const colorCells = document.querySelectorAll('.color-cell');
+        const demoToggle = document.getElementById('demoToggle');
+        const demoState = document.getElementById('demoState');
+        const demoColorName = document.getElementById('demoColorName');
+
+        let currentColor = '#c084fc';
+        let currentColorName = 'Purple';
+        let toggleActive = false;
+
+        // Функция обновления цвета тогла
+        function setToggleColor(color, name) {
+            currentColor = color;
+            currentColorName = name;
+            document.documentElement.style.setProperty('--toggle-color', color);
+            demoColorName.textContent = name;
+            // если тоггл активен – сразу обновляем индикатор
+            if (toggleActive) {
+                demoToggle.classList.add('active');
+                demoState.classList.add('active');
+            } else {
+                demoToggle.classList.remove('active');
+                demoState.classList.remove('active');
+            }
+            // обновляем текст состояния
+            demoState.textContent = toggleActive ? 'Включен' : 'Выключен';
+        }
+
+        // Обработка клика по цветовой ячейке
+        colorCells.forEach(cell => {
+            cell.addEventListener('click', function(e) {
+                const color = this.dataset.color;
+                const name = this.querySelector('.color-label')?.textContent || 'Color';
+                if (color) {
+                    setToggleColor(color, name);
+                    // подсветка активной ячейки
+                    colorCells.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Обработка клика по самому тогглу
+        demoToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleActive = !toggleActive;
+            if (toggleActive) {
+                this.classList.add('active');
+                demoState.classList.add('active');
+                demoState.textContent = 'Включен';
+            } else {
+                this.classList.remove('active');
+                demoState.classList.remove('active');
+                demoState.textContent = 'Выключен';
+            }
+            // применяем текущий цвет (уже установлен через CSS-переменную)
+        });
+
+        // Устанавливаем начальный цвет (Purple) и активируем соответствующую ячейку
+        const defaultCell = document.querySelector('.color-cell[data-color="#c084fc"]');
+        if (defaultCell) defaultCell.classList.add('active');
+        setToggleColor('#c084fc', 'Purple');
+
     })();
 </script>
 </body>
