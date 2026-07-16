@@ -6,6 +6,7 @@
     <title>LuminorGui – документация V1.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <style>
+        /* … стили без изменений … */
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +14,6 @@
         }
 
         :root {
-            /* Переменные для палитры ячеек */
             --clr-purple: #c084fc;
             --clr-red: #ff5555;
             --clr-green: #55ff7f;
@@ -23,7 +23,6 @@
             --clr-pink: #ff69b4;
             --clr-white: #ffffff;
             --clr-cyan: #00ffff;
-            /* цвет тогла по умолчанию */
             --toggle-color: #c084fc;
         }
 
@@ -39,7 +38,6 @@
             overflow-x: hidden;
         }
 
-        /* ----- ФОНОВЫЕ ЛЕТАЮЩИЕ ЧАСТИЦЫ ----- */
         .bg-particles {
             position: fixed;
             top: 0;
@@ -96,7 +94,6 @@
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* ----- HEADER ----- */
         .header {
             display: flex;
             justify-content: space-between;
@@ -134,7 +131,6 @@
             font-weight: 400;
         }
 
-        /* ----- НАВИГАЦИЯ ПО ГЛАВАМ ----- */
         .doc-nav {
             display: flex;
             gap: 4px;
@@ -178,7 +174,6 @@
             width: 60%;
         }
 
-        /* ----- ГЛАВЫ ----- */
         .chapter {
             display: none;
             flex-direction: column;
@@ -219,7 +214,6 @@
             font-size: 12px;
         }
 
-        /* ----- СЕТКА ЦВЕТОВ (БЛОК ЯЧЕЕК) ----- */
         .color-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
@@ -259,7 +253,6 @@
             display: block;
         }
 
-        /* ----- ДЕМО-ТОГГЛ (интерактивный) ----- */
         .demo-toggle-container {
             margin: 20px 0 10px;
             padding: 18px 20px;
@@ -332,7 +325,6 @@
             font-weight: 700;
         }
 
-        /* ----- БЛОКИ КОДА ----- */
         .code-block {
             background: #0d0d0d;
             border: 1px solid #1a1a1a;
@@ -378,7 +370,6 @@
             transform: scale(0.95);
         }
 
-        /* ----- СИНТАКСИС ----- */
         .syn-keyword   { color: #fbbf24; }
         .syn-string    { color: #34d399; }
         .syn-comment   { color: #6b7280; }
@@ -388,7 +379,6 @@
         .syn-operator  { color: #fbbf24; }
         .syn-color     { color: #c084fc; }
 
-        /* ----- НАВИГАЦИЯ ВНИЗУ ----- */
         .nav-footer {
             display: flex;
             justify-content: space-between;
@@ -413,7 +403,6 @@
         .nav-footer .nav-btn:hover {
             color: #c084fc;
             background: #141414;
-            transform: translateX(0);
         }
         .nav-footer .nav-btn:active {
             transform: scale(0.95);
@@ -446,7 +435,6 @@
             transition: color 0.3s;
         }
 
-        /* адаптив */
         @media (max-width: 700px) {
             .window { padding: 16px; }
             .doc-nav .chapter-btn { font-size: 9px; padding: 4px 8px; }
@@ -460,11 +448,9 @@
 </head>
 <body>
 
-<!-- Контейнер для летающего фона -->
 <div class="bg-particles" id="bgParticles"></div>
 
 <div class="window">
-    <!-- HEADER -->
     <div class="header">
         <div class="brand">
             <span class="title">Luminor</span>
@@ -474,7 +460,6 @@
         <div style="color:#4a4a4a; font-size:10px; font-family:'Press Start 2P',monospace;">документация</div>
     </div>
 
-    <!-- НАВИГАЦИЯ ПО ГЛАВАМ -->
     <div class="doc-nav" id="chapterNav">
         <button class="chapter-btn active" data-chapter="0">Загрузчик</button>
         <button class="chapter-btn" data-chapter="1">Окно</button>
@@ -484,9 +469,7 @@
         <button class="chapter-btn" data-chapter="5">Полный код</button>
     </div>
 
-    <!-- КОНТЕЙНЕР ГЛАВ -->
     <div id="chaptersContainer">
-        <!-- Глава 0: Загрузчик -->
         <div class="chapter active" data-chapter="0">
             <h2>Установка (загрузчик)</h2>
             <p>
@@ -503,7 +486,6 @@
             </p>
         </div>
 
-        <!-- Глава 1: Окно -->
         <div class="chapter" data-chapter="1">
             <h2>Создание главного окна</h2>
             <p>
@@ -523,7 +505,6 @@
             </p>
         </div>
 
-        <!-- Глава 2: Вкладки -->
         <div class="chapter" data-chapter="2">
             <h2>Создание вкладок (Tabs)</h2>
             <p>
@@ -541,7 +522,6 @@
             </p>
         </div>
 
-        <!-- Глава 3: Тогглы -->
         <div class="chapter" data-chapter="3">
             <h2>Переключатели (Toggle)</h2>
             <p>
@@ -552,20 +532,20 @@
                 <br />• <code>callback</code> – функция, принимает новое состояние
             </p>
 
-            <!-- БЛОК ЯЧЕЕК (ПАЛИТРА ЦВЕТОВ) -->
+            <!-- Палитра цветов (теперь с data-r/g/b) -->
             <div class="color-grid">
-                <div class="color-cell" style="color: var(--clr-purple)" data-color="#c084fc"><div class="color-box" style="background-color: var(--clr-purple)"></div><span class="color-label">Purple</span></div>
-                <div class="color-cell" style="color: var(--clr-red)" data-color="#ff5555"><div class="color-box" style="background-color: var(--clr-red)"></div><span class="color-label">Red</span></div>
-                <div class="color-cell" style="color: var(--clr-green)" data-color="#55ff7f"><div class="color-box" style="background-color: var(--clr-green)"></div><span class="color-label">Green</span></div>
-                <div class="color-cell" style="color: var(--clr-blue)" data-color="#55aaff"><div class="color-box" style="background-color: var(--clr-blue)"></div><span class="color-label">Blue</span></div>
-                <div class="color-cell" style="color: var(--clr-yellow)" data-color="#ffff7f"><div class="color-box" style="background-color: var(--clr-yellow)"></div><span class="color-label">Yellow</span></div>
-                <div class="color-cell" style="color: var(--clr-orange)" data-color="#ffa600"><div class="color-box" style="background-color: var(--clr-orange)"></div><span class="color-label">Orange</span></div>
-                <div class="color-cell" style="color: var(--clr-pink)" data-color="#ff69b4"><div class="color-box" style="background-color: var(--clr-pink)"></div><span class="color-label">Pink</span></div>
-                <div class="color-cell" style="color: var(--clr-white)" data-color="#ffffff"><div class="color-box" style="background-color: var(--clr-white)"></div><span class="color-label">White</span></div>
-                <div class="color-cell" style="color: var(--clr-cyan)" data-color="#00ffff"><div class="color-box" style="background-color: var(--clr-cyan)"></div><span class="color-label">Cyan</span></div>
+                <div class="color-cell active" style="color: var(--clr-purple)" data-color="#c084fc" data-r="192" data-g="132" data-b="252" data-name="Purple"><div class="color-box" style="background-color: var(--clr-purple)"></div><span class="color-label">Purple</span></div>
+                <div class="color-cell" style="color: var(--clr-red)" data-color="#ff5555" data-r="255" data-g="85" data-b="85" data-name="Red"><div class="color-box" style="background-color: var(--clr-red)"></div><span class="color-label">Red</span></div>
+                <div class="color-cell" style="color: var(--clr-green)" data-color="#55ff7f" data-r="85" data-g="255" data-b="127" data-name="Green"><div class="color-box" style="background-color: var(--clr-green)"></div><span class="color-label">Green</span></div>
+                <div class="color-cell" style="color: var(--clr-blue)" data-color="#55aaff" data-r="85" data-g="170" data-b="255" data-name="Blue"><div class="color-box" style="background-color: var(--clr-blue)"></div><span class="color-label">Blue</span></div>
+                <div class="color-cell" style="color: var(--clr-yellow)" data-color="#ffff7f" data-r="255" data-g="255" data-b="127" data-name="Yellow"><div class="color-box" style="background-color: var(--clr-yellow)"></div><span class="color-label">Yellow</span></div>
+                <div class="color-cell" style="color: var(--clr-orange)" data-color="#ffa600" data-r="255" data-g="166" data-b="0" data-name="Orange"><div class="color-box" style="background-color: var(--clr-orange)"></div><span class="color-label">Orange</span></div>
+                <div class="color-cell" style="color: var(--clr-pink)" data-color="#ff69b4" data-r="255" data-g="105" data-b="180" data-name="Pink"><div class="color-box" style="background-color: var(--clr-pink)"></div><span class="color-label">Pink</span></div>
+                <div class="color-cell" style="color: var(--clr-white)" data-color="#ffffff" data-r="255" data-g="255" data-b="255" data-name="White"><div class="color-box" style="background-color: var(--clr-white)"></div><span class="color-label">White</span></div>
+                <div class="color-cell" style="color: var(--clr-cyan)" data-color="#00ffff" data-r="0" data-g="255" data-b="255" data-name="Cyan"><div class="color-box" style="background-color: var(--clr-cyan)"></div><span class="color-label">Cyan</span></div>
             </div>
 
-            <!-- ИНТЕРАКТИВНЫЙ ДЕМО-ТОГГЛ -->
+            <!-- Демо-тоггл -->
             <div class="demo-toggle-container">
                 <div class="demo-toggle" id="demoToggle">
                     <span class="demo-toggle-label">Демо-переключатель</span>
@@ -575,6 +555,7 @@
                 <div class="demo-toggle-color-label">Цвет: <span id="demoColorName">Purple</span></div>
             </div>
 
+            <!-- Блок кода, который будет обновляться -->
             <div class="code-block">
                 <button class="copy-btn" data-code="3">Копировать</button>
                 <pre id="code3"><span class="syn-keyword">local</span> Purple <span class="syn-operator">=</span> <span class="syn-color">Color3</span>.<span class="syn-function">fromRGB</span>(<span class="syn-number">192</span>, <span class="syn-number">132</span>, <span class="syn-number">252</span>)
@@ -585,11 +566,10 @@ Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"В
             </div>
             <p>
                 При клике меняет цвет текста, показывает неоновую линию снизу и вызывает колбэк.
-                <br><strong>👆 Кликните на цветной квадрат выше</strong> – цвет демо-переключателя изменится.
+                <br><strong>👆 Кликните на цветной квадрат выше</strong> – цвет демо-переключателя и код изменятся.
             </p>
         </div>
 
-        <!-- Глава 4: Кнопки -->
         <div class="chapter" data-chapter="4">
             <h2>Обычные кнопки (Button)</h2>
             <p>
@@ -608,7 +588,6 @@ Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"В
             </p>
         </div>
 
-        <!-- Глава 5: Полный пример -->
         <div class="chapter" data-chapter="5">
             <h2>Готовый скрипт</h2>
             <p>
@@ -652,7 +631,6 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
         </div>
     </div>
 
-    <!-- НАВИГАЦИЯ ВНИЗУ -->
     <div class="nav-footer">
         <button class="nav-btn" id="prevChapter">
             <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
@@ -670,7 +648,7 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
     (function() {
         'use strict';
 
-        // ========== ЛЕТАЮЩИЕ ЧАСТИЦЫ ==========
+        // ===== ЛЕТАЮЩИЕ ЧАСТИЦЫ =====
         const bgContainer = document.getElementById('bgParticles');
         const particleCount = 18;
 
@@ -702,7 +680,7 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
         }
         for (let i = 0; i < particleCount; i++) createParticle(true);
 
-        // ========== НАВИГАЦИЯ ПО ГЛАВАМ ==========
+        // ===== НАВИГАЦИЯ =====
         const chapters = document.querySelectorAll('.chapter');
         const navBtns = document.querySelectorAll('.chapter-btn');
         const prevBtn = document.getElementById('prevChapter');
@@ -739,7 +717,7 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
         prevBtn.addEventListener('click', () => { if (currentIndex > 0) setChapter(currentIndex - 1); });
         nextBtn.addEventListener('click', () => { if (currentIndex < total - 1) setChapter(currentIndex + 1); });
 
-        // ========== КОПИРОВАНИЕ ==========
+        // ===== КОПИРОВАНИЕ =====
         copyBtns.forEach((btn) => {
             btn.addEventListener('click', function() {
                 const codeId = this.dataset.code;
@@ -781,41 +759,58 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
 
         setChapter(0);
 
-        // ========== ИНТЕРАКТИВНЫЙ ТОГГЛ С ПАЛИТРОЙ ==========
+        // ===== ИНТЕРАКТИВНЫЙ ТОГГЛ + ОБНОВЛЕНИЕ КОДА =====
         const colorCells = document.querySelectorAll('.color-cell');
         const demoToggle = document.getElementById('demoToggle');
         const demoState = document.getElementById('demoState');
         const demoColorName = document.getElementById('demoColorName');
+        const codePre = document.getElementById('code3');
 
         let currentColor = '#c084fc';
         let currentColorName = 'Purple';
         let toggleActive = false;
 
-        // Функция обновления цвета тогла
-        function setToggleColor(color, name) {
+        // Функция обновления цвета и кода
+        function setToggleColor(color, name, r, g, b) {
             currentColor = color;
             currentColorName = name;
             document.documentElement.style.setProperty('--toggle-color', color);
             demoColorName.textContent = name;
-            // если тоггл активен – сразу обновляем индикатор
+            // обновляем демо-тоггл
             if (toggleActive) {
                 demoToggle.classList.add('active');
                 demoState.classList.add('active');
+                demoState.textContent = 'Включен';
             } else {
                 demoToggle.classList.remove('active');
                 demoState.classList.remove('active');
+                demoState.textContent = 'Выключен';
             }
-            // обновляем текст состояния
-            demoState.textContent = toggleActive ? 'Включен' : 'Выключен';
+            // обновляем код в pre#code3
+            updateCode(name, r, g, b);
         }
 
-        // Обработка клика по цветовой ячейке
+        // Генерация нового кода с подсветкой (span-ы)
+        function updateCode(name, r, g, b) {
+            // Шаблон с плейсхолдерами и классами
+            const template = `<span class="syn-keyword">local</span> ${name} <span class="syn-operator">=</span> <span class="syn-color">Color3</span>.<span class="syn-function">fromRGB</span>(<span class="syn-number">${r}</span>, <span class="syn-number">${g}</span>, <span class="syn-number">${b}</span>)
+
+Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"Включить режим"</span>, ${name}, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(state)
+    <span class="syn-function">print</span>(<span class="syn-string">"Состояние:"</span>, state)
+<span class="syn-keyword">end</span>)`;
+            codePre.innerHTML = template;
+        }
+
+        // Обработка клика по ячейке
         colorCells.forEach(cell => {
             cell.addEventListener('click', function(e) {
                 const color = this.dataset.color;
-                const name = this.querySelector('.color-label')?.textContent || 'Color';
-                if (color) {
-                    setToggleColor(color, name);
+                const name = this.dataset.name;
+                const r = parseInt(this.dataset.r, 10);
+                const g = parseInt(this.dataset.g, 10);
+                const b = parseInt(this.dataset.b, 10);
+                if (color && name && !isNaN(r) && !isNaN(g) && !isNaN(b)) {
+                    setToggleColor(color, name, r, g, b);
                     // подсветка активной ячейки
                     colorCells.forEach(c => c.classList.remove('active'));
                     this.classList.add('active');
@@ -836,13 +831,17 @@ Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"te
                 demoState.classList.remove('active');
                 demoState.textContent = 'Выключен';
             }
-            // применяем текущий цвет (уже установлен через CSS-переменную)
         });
 
-        // Устанавливаем начальный цвет (Purple) и активируем соответствующую ячейку
-        const defaultCell = document.querySelector('.color-cell[data-color="#c084fc"]');
-        if (defaultCell) defaultCell.classList.add('active');
-        setToggleColor('#c084fc', 'Purple');
+        // Устанавливаем начальный цвет (Purple) и код
+        const defaultCell = document.querySelector('.color-cell[data-name="Purple"]');
+        if (defaultCell) {
+            defaultCell.classList.add('active');
+            const r = parseInt(defaultCell.dataset.r, 10);
+            const g = parseInt(defaultCell.dataset.g, 10);
+            const b = parseInt(defaultCell.dataset.b, 10);
+            setToggleColor('#c084fc', 'Purple', r, g, b);
+        }
 
     })();
 </script>
