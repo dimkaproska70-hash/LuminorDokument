@@ -412,7 +412,7 @@
             </p>
             <div class="code-block">
                 <button class="copy-btn" data-code="0">Копировать</button>
-                <pre id="code0"><span class="syn-keyword">local</span> LuminorGui <span class="syn-operator">=</span> <span class="syn-function">loadstring</span>(<span class="syn-function">game</span>.<span class="syn-function">HttpGet</span>(<span class="syn-string">"https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"</span>))()</pre>
+                <pre id="code0"><span class="syn-keyword">local</span> LuminorGui <span class="syn-operator">=</span> <span class="syn-function">loadstring</span>(<span class="syn-function">game</span>:<span class="syn-function">HttpGet</span>(<span class="syn-string">"https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"</span>))()</pre>
             </div>
             <p>
                 <span style="color:#6b7280;">💡</span> Требуется доступ к <code>game:HttpGet</code>.
@@ -464,7 +464,7 @@
             <p>
                 <code>Tab:CreateToggle(text, neonColor, defaultState, callback)</code>
                 <br />• <code>text</code> – подпись
-                <br />• <code>neonColor</code> – цвет подсветки (строка из палитры ниже или объект <code>Color3</code>)
+                <br />• <code>neonColor</code> – цвет подсветки (<code>Color3</code>)
                 <br />• <code>defaultState</code> – <code>true</code> / <code>false</code>
                 <br />• <code>callback</code> – функция, принимает новое состояние
             </p>
@@ -484,7 +484,9 @@
 
             <div class="code-block">
                 <button class="copy-btn" data-code="3">Копировать</button>
-                <pre id="code3">Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"Включить режим"</span>, <span class="syn-string">"Purple"</span>, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(state)
+                <pre id="code3"><span class="syn-keyword">local</span> Purple <span class="syn-operator">=</span> <span class="syn-color">Color3</span>.<span class="syn-function">fromRGB</span>(<span class="syn-number">192</span>, <span class="syn-number">132</span>, <span class="syn-number">252</span>)
+
+Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"Включить режим"</span>, Purple, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(state)
     <span class="syn-function">print</span>(<span class="syn-string">"Состояние:"</span>, state)
 <span class="syn-keyword">end</span>)</pre>
             </div>
@@ -512,7 +514,7 @@
             </p>
         </div>
 
-        <!-- Глава 5: Полный пример (исправлен) -->
+        <!-- Глава 5: Полный пример -->
         <div class="chapter" data-chapter="5">
             <h2>Готовый скрипт</h2>
             <p>
@@ -522,7 +524,7 @@
             <div class="code-block">
                 <button class="copy-btn" data-code="5">Копировать</button>
                 <pre id="code5"><span class="syn-comment">-- Загружаем библиотеку</span>
-<span class="syn-keyword">local</span> LuminorGui <span class="syn-operator">=</span> <span class="syn-function">loadstring</span>(<span class="syn-function">game</span>.<span class="syn-function">HttpGet</span>(<span class="syn-string">"https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"</span>))()
+<span class="syn-keyword">local</span> LuminorGui <span class="syn-operator">=</span> <span class="syn-function">loadstring</span>(<span class="syn-function">game</span>:<span class="syn-function">HttpGet</span>(<span class="syn-string">"https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"</span>))()
 
 <span class="syn-comment">-- Создаём окно</span>
 <span class="syn-keyword">local</span> Window <span class="syn-operator">=</span> LuminorGui.<span class="syn-function">CreateWindow</span>(<span class="syn-string">"test"</span>)
@@ -532,16 +534,21 @@
 <span class="syn-keyword">local</span> Tab2 <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"test 2"</span>)
 <span class="syn-keyword">local</span> Tab3 <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"test 3"</span>)
 
+<span class="syn-comment">-- Цвета</span>
+<span class="syn-keyword">local</span> Orange <span class="syn-operator">=</span> <span class="syn-color">Color3</span>.<span class="syn-function">fromRGB</span>(<span class="syn-number">255</span>, <span class="syn-number">170</span>, <span class="syn-number">40</span>)
+<span class="syn-keyword">local</span> White  <span class="syn-operator">=</span> <span class="syn-color">Color3</span>.<span class="syn-function">fromRGB</span>(<span class="syn-number">255</span>, <span class="syn-number">255</span>, <span class="syn-number">255</span>)
+<span class="syn-keyword">local</span> Purple <span class="syn-operator">=</span> <span class="syn-color">Color3</span>.<span class="syn-function">fromRGB</span>(<span class="syn-number">192</span>, <span class="syn-number">132</span>, <span class="syn-number">252</span>)
+
 <span class="syn-comment">-- Tab1</span>
-Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"test"</span>, <span class="syn-string">"Orange"</span>, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) <span class="syn-function">print</span>(<span class="syn-string">"Оранжевый:"</span>, s) <span class="syn-keyword">end</span>)
+Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"test"</span>, Orange, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) <span class="syn-function">print</span>(<span class="syn-string">"Оранжевый:"</span>, s) <span class="syn-keyword">end</span>)
 Tab1:<span class="syn-function">CreateButton</span>(<span class="syn-string">"test"</span>, <span class="syn-keyword">function</span>() <span class="syn-function">print</span>(<span class="syn-string">"Кнопка Tab1"</span>) <span class="syn-keyword">end</span>)
 
 <span class="syn-comment">-- Tab2</span>
-Tab2:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"test"</span>, <span class="syn-string">"White"</span>, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) <span class="syn-function">print</span>(<span class="syn-string">"Белый:"</span>, s) <span class="syn-keyword">end</span>)
+Tab2:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"test"</span>, White, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) <span class="syn-function">print</span>(<span class="syn-string">"Белый:"</span>, s) <span class="syn-keyword">end</span>)
 Tab2:<span class="syn-function">CreateButton</span>(<span class="syn-string">"test"</span>, <span class="syn-keyword">function</span>() <span class="syn-function">print</span>(<span class="syn-string">"Кнопка Tab2"</span>) <span class="syn-keyword">end</span>)
 
 <span class="syn-comment">-- Tab3</span>
-Tab3:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"test"</span>, <span class="syn-string">"Purple"</span>, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) <span class="syn-function">print</span>(<span class="syn-string">"Фиолетовый:"</span>, s) <span class="syn-keyword">end</span>)
+Tab3:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"test"</span>, Purple, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) <span class="syn-function">print</span>(<span class="syn-string">"Фиолетовый:"</span>, s) <span class="syn-keyword">end</span>)
 Tab3:<span class="syn-function">CreateButton</span>(<span class="syn-string">"test"</span>, <span class="syn-keyword">function</span>() <span class="syn-function">print</span>(<span class="syn-string">"Кнопка Tab3"</span>) <span class="syn-keyword">end</span>)</pre>
             </div>
             <p>
