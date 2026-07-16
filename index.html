@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LuminorLib – Документация</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Press Start 2P', 'Courier New', monospace;
+            padding: 20px;
+        }
+
+        .window {
+            width: 880px;
+            max-width: 100%;
+            background: #0a0a0a;
+            border: 2px solid #2a2a2a;
+            box-shadow: 0 0 30px rgba(192, 132, 252, 0.08);
+            padding: 24px 28px 20px;
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            animation: windowAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes windowAppear {
+            0% { opacity: 0; transform: translateY(30px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ----- HEADER ----- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 14px;
+            margin-bottom: 22px;
+        }
+        .brand {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .brand .title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 28px;
+            color: #c084fc;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(192, 132, 252, 0.15);
+            transition: text-shadow 0.4s;
+        }
+        .brand .title:hover {
+            text-shadow: 0 0 40px rgba(192, 132, 252, 0.4);
+        }
+        .brand .badge {
+            color: #4a4a4a;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .brand .version {
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        /* ----- НАВИГАЦИЯ ПО ГЛАВАМ ----- */
+        .doc-nav {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #141414;
+            padding-bottom: 14px;
+        }
+        .doc-nav .chapter-btn {
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            padding: 6px 14px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        .doc-nav .chapter-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #c084fc;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(-50%);
+        }
+        .doc-nav .chapter-btn:hover {
+            color: #d1d5db;
+            background: #141414;
+        }
+        .doc-nav .chapter-btn.active {
+            color: #c084fc;
+            background: #1a1a1a;
+        }
+        .doc-nav .chapter-btn.active::after {
+            width: 60%;
+        }
+
+        /* ----- ГЛАВЫ ----- */
+        .chapter {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            animation: chapterFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .chapter.active {
+            display: flex;
+        }
+
+        @keyframes chapterFade {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .chapter h2 {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            border-left: 4px solid #c084fc;
+            padding-left: 14px;
+            font-family: 'Press Start 2P', monospace;
+        }
+        .chapter p {
+            color: #e5e7eb;
+            line-height: 1.8;
+            font-size: 13px;
+            font-family: 'Press Start 2P', monospace;
+            font-weight: 300;
+        }
+        .chapter p code {
+            background: #1a1a1a;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #c084fc;
+            font-family: 'Ubuntu Mono', monospace;
+            font-size: 12px;
+        }
+
+        /* ----- БЛОКИ КОДА ----- */
+        .code-block {
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            padding: 16px 18px;
+            position: relative;
+            overflow: auto;
+            transition: border-color 0.4s, box-shadow 0.4s;
+        }
+        .code-block:hover {
+            border-color: #2a2a2a;
+            box-shadow: 0 0 30px rgba(192, 132, 252, 0.04);
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Ubuntu Mono', 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            color: #e5e7eb;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .code-block .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            background: #141414;
+            border: 1px solid #2a2a2a;
+            color: #9ca3af;
+            padding: 4px 14px;
+            font-size: 10px;
+            font-family: 'Press Start 2P', monospace;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .code-block .copy-btn:hover {
+            background: #1f1f1f;
+            border-color: #c084fc;
+            color: #c084fc;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(192, 132, 252, 0.1);
+        }
+        .code-block .copy-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ----- СИНТАКСИС ----- */
+        .syn-keyword   { color: #fbbf24; }
+        .syn-string    { color: #34d399; }
+        .syn-comment   { color: #6b7280; }
+        .syn-number    { color: #f472b6; }
+        .syn-function  { color: #60a5fa; }
+        .syn-variable  { color: #e5e7eb; }
+        .syn-operator  { color: #fbbf24; }
+        .syn-color     { color: #c084fc; }
+
+        /* ----- НАВИГАЦИЯ ВНИЗУ ----- */
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 2px solid #141414;
+        }
+        .nav-footer .nav-btn {
+            background: transparent;
+            border: none;
+            color: #6b7280;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-footer .nav-btn:hover {
+            color: #c084fc;
+            background: #141414;
+            transform: translateX(0);
+        }
+        .nav-footer .nav-btn:active {
+            transform: scale(0.95);
+        }
+        .nav-footer .nav-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+            transition: transform 0.3s;
+        }
+        .nav-footer .nav-btn:hover svg {
+            transform: translateX(0);
+        }
+        .nav-footer .nav-btn:first-child:hover svg {
+            transform: translateX(-3px);
+        }
+        .nav-footer .nav-btn:last-child:hover svg {
+            transform: translateX(3px);
+        }
+        .nav-footer .chapter-indicator {
+            color: #4a4a4a;
+            font-size: 12px;
+            font-family: 'Press Start 2P', monospace;
+            transition: color 0.3s;
+        }
+        .nav-footer .chapter-indicator span {
+            color: #c084fc;
+            transition: color 0.3s;
+        }
+
+        /* адаптив */
+        @media (max-width: 700px) {
+            .window { padding: 16px; }
+            .doc-nav .chapter-btn { font-size: 9px; padding: 4px 8px; }
+            .chapter h2 { font-size: 14px; }
+            .brand .title { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="brand">
+            <span class="title">Luminor</span>
+            <span class="badge">LIB</span>
+            <span class="version">V1.0</span>
+        </div>
+        <div style="color:#4a4a4a; font-size:10px; font-family:'Press Start 2P',monospace;">Документация</div>
+    </div>
+
+    <!-- НАВИГАЦИЯ ПО ГЛАВАМ -->
+    <div class="doc-nav" id="chapterNav">
+        <button class="chapter-btn active" data-chapter="0">Загрузчик</button>
+        <button class="chapter-btn" data-chapter="1">Окно</button>
+        <button class="chapter-btn" data-chapter="2">Вкладки</button>
+        <button class="chapter-btn" data-chapter="3">Тогглы</button>
+        <button class="chapter-btn" data-chapter="4">Кнопки</button>
+        <button class="chapter-btn" data-chapter="5">Готовое меню</button>
+    </div>
+
+    <!-- КОНТЕЙНЕР ГЛАВ -->
+    <div id="chaptersContainer">
+        <!-- Глава 0: Загрузчик -->
+        <div class="chapter active" data-chapter="0">
+            <h2>Шаг 1: Загрузка библиотеки</h2>
+            <p>
+                Подключите библиотеку <code>LuminorLib</code> через <code>loadstring</code>, указав прямую ссылку на <strong>raw</strong>‑версию скрипта с GitHub.
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="0">Копировать</button>
+                <pre id="code0"><span class="syn-keyword">local</span> LuminorLib <span class="syn-operator">=</span> <span class="syn-function">loadstring</span>(<span class="syn-function">game</span>:<span class="syn-function">HttpGet</span>(<span class="syn-string">"https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"</span>))()</pre>
+            </div>
+            <p>
+                <span style="color:#6b7280;">💡</span> Убедитесь, что ваш исполнитель скриптов (executor) поддерживает функцию <code>game:HttpGet</code>.
+            </p>
+        </div>
+
+        <!-- Глава 1: Окно -->
+        <div class="chapter" data-chapter="1">
+            <h2>Шаг 2: Создание главного окна</h2>
+            <p>
+                Используйте функцию <code>CreateWindow</code>, чтобы создать каркас интерфейса. Оно появится после красивой заставки с эффектом Pop-up.
+                <br /><strong>Параметры:</strong>
+                <br />• <code>titleText</code> – заголовок
+                <br />• <code>uiName</code> – техническое имя интерфейса
+                <br />• <code>watermarkText</code> – подпись в левом нижнем углу
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="1">Копировать</button>
+                <pre id="code1"><span class="syn-keyword">local</span> Window <span class="syn-operator">=</span> LuminorLib:<span class="syn-function">CreateWindow</span>(<span class="syn-string">"Панель Управления"</span>, <span class="syn-string">"MyCoolUI"</span>, <span class="syn-string">"Создано с LuminorLib"</span>)</pre>
+            </div>
+            <p>
+                Готовое окно поддерживает перемещение за фон, изменение размера за правый нижний угол и сворачивание.
+            </p>
+        </div>
+
+        <!-- Глава 2: Вкладки -->
+        <div class="chapter" data-chapter="2">
+            <h2>Шаг 3: Группировка по вкладкам</h2>
+            <p>
+                Вкладки (Tabs) располагаются в левой части меню. Под активной вкладкой всегда горит белая неоновая полоска.
+                Метод <code>CreateTab</code> возвращает объект, к которому привязываются кнопки.
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="2">Копировать</button>
+                <pre id="code2"><span class="syn-keyword">local</span> Tab1 <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"⚔️ Функции"</span>)
+<span class="syn-keyword">local</span> Tab2 <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"👁️ ESP"</span>)</pre>
+            </div>
+        </div>
+
+        <!-- Глава 3: Тогглы -->
+        <div class="chapter" data-chapter="3">
+            <h2>Шаг 4: Переключатели (Toggles)</h2>
+            <p>
+                Тоггл запоминает состояние (Вкл/Выкл) и зажигает цветную неоновую полоску. Отлично подходит для активации читов, автофарма и ESP.
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="3">Копировать</button>
+                <pre id="code3"><span class="syn-keyword">local</span> Purple <span class="syn-operator">=</span> <span class="syn-color">Color3</span>.<span class="syn-function">fromRGB</span>(<span class="syn-number">192</span>, <span class="syn-number">132</span>, <span class="syn-number">252</span>)
+
+Tab1:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"Авто-Фарм"</span>, Purple, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(state)
+    <span class="syn-keyword">if</span> state <span class="syn-keyword">then</span>
+        <span class="syn-function">print</span>(<span class="syn-string">"Авто-Фарм запущен!"</span>)
+    <span class="syn-keyword">else</span>
+        <span class="syn-function">print</span>(<span class="syn-string">"Авто-Фарм остановлен!"</span>)
+    <span class="syn-keyword">end</span>
+<span class="syn-keyword">end</span>)</pre>
+            </div>
+            <p>
+                <code>defaultState</code> (в примере <code>false</code>) определяет, включен ли тоггл изначально при запуске.
+            </p>
+        </div>
+
+        <!-- Глава 4: Кнопки -->
+        <div class="chapter" data-chapter="4">
+            <h2>Шаг 5: Обычные кнопки (Buttons)</h2>
+            <p>
+                Кнопка (Button) используется для разовых действий: телепорт, спавн предмета или сброс настроек. У кнопок нет состояния (Вкл/Выкл), но при нажатии воспроизводится красивая анимация расходящейся волны (ripple-эффект).
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="4">Копировать</button>
+                <pre id="code4">Tab1:<span class="syn-function">CreateButton</span>(<span class="syn-string">"Телепорт на спавн"</span>, <span class="syn-keyword">function</span>()
+    <span class="syn-function">print</span>(<span class="syn-string">"Кнопка нажата! Выполняю действие..."</span>)
+<span class="syn-keyword">end</span>)</pre>
+            </div>
+            <p>
+                <span style="color:#6b7280;">💡</span> В отличие от тогглов, для кнопок не нужно указывать цвет, они имеют стандартный строгий вид.
+            </p>
+        </div>
+
+        <!-- Глава 5: Полный пример -->
+        <div class="chapter" data-chapter="5">
+            <h2>Готовое меню</h2>
+            <p>
+                Вот полный рабочий шаблон для создания скрипта, который включает и тогглы, и обычные кнопки.
+            </p>
+            <div class="code-block">
+                <button class="copy-btn" data-code="5">Копировать</button>
+                <pre id="code5"><span class="syn-comment">-- 1. Загружаем библиотеку</span>
+<span class="syn-keyword">local</span> LuminorLib <span class="syn-operator">=</span> <span class="syn-function">loadstring</span>(<span class="syn-function">game</span>:<span class="syn-function">HttpGet</span>(<span class="syn-string">"https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"</span>))()
+
+<span class="syn-comment">-- 2. Создаём главное окно</span>
+<span class="syn-keyword">local</span> Window <span class="syn-operator">=</span> LuminorLib:<span class="syn-function">CreateWindow</span>(<span class="syn-string">"Mega Script"</span>, <span class="syn-string">"MyUI"</span>, <span class="syn-string">"LN V1.0"</span>)
+
+<span class="syn-comment">-- 3. Добавляем вкладки</span>
+<span class="syn-keyword">local</span> TabMain <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"⚔️ Основное"</span>)
+<span class="syn-keyword">local</span> TabPlayer <span class="syn-operator">=</span> Window:<span class="syn-function">CreateTab</span>(<span class="syn-string">"🏃 Игрок"</span>)
+
+<span class="syn-comment">-- Настраиваем цвета для переключателей</span>
+<span class="syn-keyword">local</span> Orange <span class="syn-operator">=</span> <span class="syn-color">Color3</span>.<span class="syn-function">fromRGB</span>(<span class="syn-number">255</span>, <span class="syn-number">170</span>, <span class="syn-number">40</span>)
+<span class="syn-keyword">local</span> Purple <span class="syn-operator">=</span> <span class="syn-color">Color3</span>.<span class="syn-function">fromRGB</span>(<span class="syn-number">192</span>, <span class="syn-number">132</span>, <span class="syn-number">252</span>)
+
+<span class="syn-comment">-- 4. Наполняем вкладку "Основное" (Тогглы)</span>
+TabMain:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"Авто-Атака"</span>, Orange, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) 
+    <span class="syn-function">print</span>(<span class="syn-string">"Авто-Атака:"</span>, s) 
+<span class="syn-keyword">end</span>)
+
+<span class="syn-comment">-- Добавляем обычную кнопку во вкладку "Основное"</span>
+TabMain:<span class="syn-function">CreateButton</span>(<span class="syn-string">"Выдать меч"</span>, <span class="syn-keyword">function</span>() 
+    <span class="syn-function">print</span>(<span class="syn-string">"Меч выдан!"</span>) 
+<span class="syn-keyword">end</span>)
+
+<span class="syn-comment">-- 5. Наполняем вкладку "Игрок"</span>
+TabPlayer:<span class="syn-function">CreateToggle</span>(<span class="syn-string">"Подсветка (ESP)"</span>, Purple, <span class="syn-keyword">false</span>, <span class="syn-keyword">function</span>(s) 
+    <span class="syn-function">print</span>(<span class="syn-string">"ВХ:"</span>, s) 
+<span class="syn-keyword">end</span>)
+
+TabPlayer:<span class="syn-function">CreateButton</span>(<span class="syn-string">"Телепорт на базу"</span>, <span class="syn-keyword">function</span>() 
+    <span class="syn-function">print</span>(<span class="syn-string">"Телепорт выполнен!"</span>) 
+<span class="syn-keyword">end</span>)</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- НАВИГАЦИЯ ВНИЗУ -->
+    <div class="nav-footer">
+        <button class="nav-btn" id="prevChapter">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            Назад
+        </button>
+        <div class="chapter-indicator">Глава <span id="currentChapterNum">1</span> / <span id="totalChapters">6</span></div>
+        <button class="nav-btn" id="nextChapter">
+            Вперёд
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        const chapters = document.querySelectorAll('.chapter');
+        const navBtns = document.querySelectorAll('.chapter-btn');
+        const prevBtn = document.getElementById('prevChapter');
+        const nextBtn = document.getElementById('nextChapter');
+        const currentSpan = document.getElementById('currentChapterNum');
+        const totalSpan = document.getElementById('totalChapters');
+        const copyBtns = document.querySelectorAll('.copy-btn');
+
+        let currentIndex = 0;
+        const total = chapters.length;
+        totalSpan.textContent = total;
+
+        function setChapter(index) {
+            if (index < 0 || index >= total) return;
+            currentIndex = index;
+
+            chapters.forEach((ch, i) => {
+                ch.classList.toggle('active', i === index);
+                // Перезапускаем анимацию при смене
+                if (i === index) {
+                    ch.style.animation = 'none';
+                    requestAnimationFrame(() => {
+                        ch.style.animation = 'chapterFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both';
+                    });
+                }
+            });
+
+            navBtns.forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+
+            currentSpan.textContent = index + 1;
+        }
+
+        // клики по кнопкам глав
+        navBtns.forEach((btn) => {
+            btn.addEventListener('click', function() {
+                const idx = parseInt(this.dataset.chapter, 10);
+                setChapter(idx);
+            });
+        });
+
+        // назад / вперёд
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) setChapter(currentIndex - 1);
+        });
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < total - 1) setChapter(currentIndex + 1);
+        });
+
+        // копирование с анимацией
+        copyBtns.forEach((btn) => {
+            btn.addEventListener('click', function() {
+                const codeId = this.dataset.code;
+                const pre = document.getElementById('code' + codeId);
+                if (!pre) return;
+                const text = pre.textContent;
+
+                const copyFn = (method) => {
+                    method(text).then(() => {
+                        showCopyFeedback(this);
+                    }).catch(() => fallbackCopy(text));
+                };
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    copyFn(navigator.clipboard.writeText.bind(navigator.clipboard));
+                } else {
+                    fallbackCopy(text);
+                }
+            });
+        });
+
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showCopyFeedback(document.activeElement);
+        }
+
+        function showCopyFeedback(btn) {
+            const orig = btn.textContent;
+            btn.textContent = '✅';
+            btn.style.borderColor = '#34d399';
+            btn.style.color = '#34d399';
+            setTimeout(() => {
+                btn.textContent = orig;
+                btn.style.borderColor = '#2a2a2a';
+                btn.style.color = '#9ca3af';
+            }, 2000);
+        }
+
+        // старт
+        setChapter(0);
+    })();
+</script>
+</body>
+</html>
