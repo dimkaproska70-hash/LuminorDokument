@@ -12,15 +12,39 @@
             background-image: 
                 radial-gradient(at 0% 0%, rgba(192, 132, 252, 0.15) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(85, 170, 255, 0.1) 0px, transparent 50%);
+            overflow-x: hidden;
         }
         .glass {
             background: rgba(17, 17, 24, 0.7);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .neon-glow {
-            box-shadow: 0 0 20px rgba(192, 132, 252, 0.3);
+        
+        /* === ЭФФЕКТ ПЛАВАЮЩИХ БУКВ === */
+        @keyframes floatLetter {
+            0%, 100% {
+                transform: translateY(0);
+                text-shadow: 0 0 10px rgba(192, 132, 252, 0.2);
+            }
+            50% {
+                transform: translateY(-12px);
+                text-shadow: 0 10px 20px rgba(192, 132, 252, 0.6);
+            }
         }
+        .floating-letter {
+            display: inline-block;
+            animation: floatLetter 3s ease-in-out infinite;
+        }
+
+        /* Плавное парение для карточек */
+        @keyframes hoverCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .floating-card {
+            animation: hoverCard 4s ease-in-out infinite;
+        }
+
         pre {
             background: rgba(5, 5, 8, 0.8) !important;
         }
@@ -31,11 +55,21 @@
     <!-- Хедер -->
     <header class="border-b border-purple-900/30 glass sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <!-- Логотип с плавающими буквами -->
             <div class="flex items-center gap-3">
-                <span class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 tracking-wider">
-                    LUMINOR <span class="text-white text-sm px-2 py-0.5 rounded bg-purple-600/30 border border-purple-500/50">v1.1</span>
+                <span class="text-3xl font-extrabold tracking-wider flex select-none">
+                    <span class="floating-letter text-purple-400" style="animation-delay: 0s;">L</span>
+                    <span class="floating-letter text-purple-400" style="animation-delay: 0.15s;">U</span>
+                    <span class="floating-letter text-purple-400" style="animation-delay: 0.3s;">M</span>
+                    <span class="floating-letter text-purple-300" style="animation-delay: 0.45s;">I</span>
+                    <span class="floating-letter text-indigo-400" style="animation-delay: 0.6s;">N</span>
+                    <span class="floating-letter text-indigo-400" style="animation-delay: 0.75s;">O</span>
+                    <span class="floating-letter text-indigo-400" style="animation-delay: 0.9s;">R</span>
                 </span>
+                <span class="text-white text-xs px-2 py-0.5 rounded bg-purple-600/30 border border-purple-500/50 h-fit self-center">v1.1</span>
             </div>
+            
             <div class="flex gap-4">
                 <a href="https://github.com/dimkaproska70-hash/LuminorGui" target="_blank" class="flex items-center gap-2 text-sm text-gray-400 hover:text-purple-400 transition">
                     <i data-lucide="github" class="w-4 h-4"></i> GitHub
@@ -75,7 +109,7 @@
         <div class="md:col-span-3 space-y-12">
 
             <!-- Введение -->
-            <section id="intro" class="glass rounded-2xl p-6 space-y-4">
+            <section id="intro" class="glass rounded-2xl p-6 space-y-4 floating-card">
                 <h2 class="text-2xl font-bold text-white flex items-center gap-2">
                     <i data-lucide="sparkles" class="text-purple-400"></i> Введение
                 </h2>
@@ -241,7 +275,7 @@ end)</pre>
     </footer>
 
     <script>
-        // Инициализация красивых иконок Lucide
+        // Инициализация иконок Lucide
         lucide.createIcons();
     </script>
 </body>
