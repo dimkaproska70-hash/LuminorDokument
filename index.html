@@ -3,280 +3,558 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuminorLib v1.1 — Документация</title>
+    <title>LuminorLib v1.1 — Премиум Документация</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #0b0b0f;
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(192, 132, 252, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(85, 170, 255, 0.1) 0px, transparent 50%);
-            overflow-x: hidden;
-        }
-        .glass {
-            background: rgba(17, 17, 24, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        :root {
+            --bg-color: #050508;
+            --accent-glow: rgba(168, 85, 247, 0.15);
         }
         
-        /* === ЭФФЕКТ ПЛАВАЮЩИХ БУКВ === */
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Анимированный градиент на фоне */
+        .bg-mesh {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(147, 51, 234, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 25%);
+            z-index: -1;
+            animation: pulse-bg 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-bg {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Премиум стекло */
+        .glass-panel {
+            background: rgba(15, 15, 20, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(168, 85, 247, 0.3);
+            box-shadow: 0 8px 40px rgba(168, 85, 247, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        /* Плавающие буквы */
         @keyframes floatLetter {
-            0%, 100% {
-                transform: translateY(0);
-                text-shadow: 0 0 10px rgba(192, 132, 252, 0.2);
-            }
-            50% {
-                transform: translateY(-12px);
-                text-shadow: 0 10px 20px rgba(192, 132, 252, 0.6);
-            }
+            0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(168,85,247,0.3); }
+            50% { transform: translateY(-8px); text-shadow: 0 12px 24px rgba(168,85,247,0.8); }
         }
         .floating-letter {
             display: inline-block;
             animation: floatLetter 3s ease-in-out infinite;
         }
 
-        /* Плавное парение для карточек */
-        @keyframes hoverCard {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        .floating-card {
-            animation: hoverCard 4s ease-in-out infinite;
-        }
+        /* Скроллбар */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #050508; }
+        ::-webkit-scrollbar-thumb { background: #2d2042; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #51367a; }
 
-        pre {
-            background: rgba(5, 5, 8, 0.8) !important;
+        pre { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Плавное появление секций */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+        .animate-fade { animation: fadeUp 0.6s ease-out forwards; }
     </style>
 </head>
-<body class="text-gray-100 font-sans min-h-screen">
+<body class="antialiased selection:bg-purple-500/30 selection:text-purple-200">
 
-    <!-- Хедер -->
-    <header class="border-b border-purple-900/30 glass sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="bg-mesh"></div>
+
+    <!-- Навигация (Header) -->
+    <header class="glass-panel sticky top-0 z-50 border-b-0 border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
             
-            <!-- Логотип с плавающими буквами -->
-            <div class="flex items-center gap-3">
-                <span class="text-3xl font-extrabold tracking-wider flex select-none">
-                    <span class="floating-letter text-purple-400" style="animation-delay: 0s;">L</span>
-                    <span class="floating-letter text-purple-400" style="animation-delay: 0.15s;">U</span>
-                    <span class="floating-letter text-purple-400" style="animation-delay: 0.3s;">M</span>
-                    <span class="floating-letter text-purple-300" style="animation-delay: 0.45s;">I</span>
-                    <span class="floating-letter text-indigo-400" style="animation-delay: 0.6s;">N</span>
-                    <span class="floating-letter text-indigo-400" style="animation-delay: 0.75s;">O</span>
-                    <span class="floating-letter text-indigo-400" style="animation-delay: 0.9s;">R</span>
+            <!-- Логотип -->
+            <div class="flex items-center gap-4 cursor-default">
+                <span class="text-2xl font-black tracking-widest flex">
+                    <span class="floating-letter text-fuchsia-400" style="animation-delay: 0s;">L</span>
+                    <span class="floating-letter text-fuchsia-400" style="animation-delay: 0.1s;">U</span>
+                    <span class="floating-letter text-purple-400" style="animation-delay: 0.2s;">M</span>
+                    <span class="floating-letter text-purple-400" style="animation-delay: 0.3s;">I</span>
+                    <span class="floating-letter text-indigo-400" style="animation-delay: 0.4s;">N</span>
+                    <span class="floating-letter text-indigo-400" style="animation-delay: 0.5s;">O</span>
+                    <span class="floating-letter text-blue-400" style="animation-delay: 0.6s;">R</span>
                 </span>
-                <span class="text-white text-xs px-2 py-0.5 rounded bg-purple-600/30 border border-purple-500/50 h-fit self-center">v1.1</span>
+                <div class="px-2.5 py-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-[10px] font-bold text-purple-300 tracking-wider shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+                    VERSION 1.1
+                </div>
             </div>
             
-            <div class="flex gap-4">
-                <a href="https://github.com/dimkaproska70-hash/LuminorGui" target="_blank" class="flex items-center gap-2 text-sm text-gray-400 hover:text-purple-400 transition">
-                    <i data-lucide="github" class="w-4 h-4"></i> GitHub
-                </a>
-            </div>
+            <a href="https://github.com/dimkaproska70-hash/LuminorGui" target="_blank" class="flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span class="hidden sm:inline">Репозиторий</span>
+            </a>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+    <main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
         
-        <!-- Сайдбар навигации -->
-        <aside class="md:col-span-1 space-y-2">
-            <div class="sticky top-24 space-y-1">
-                <p class="text-xs font-semibold text-purple-400 tracking-wider uppercase px-3 mb-3">Навигация</p>
-                <a href="#intro" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:bg-purple-950/20 hover:text-purple-300 transition text-sm">
-                    <i data-lucide="book-open" class="w-4 h-4"></i> Введение
+        <!-- Сайдбар (Оглавление) -->
+        <aside class="lg:col-span-3 hidden lg:block">
+            <div class="sticky top-28 flex flex-col gap-1.5 p-4 glass-panel rounded-2xl">
+                <p class="text-xs font-bold text-gray-500 tracking-widest uppercase mb-2 ml-2">Документация</p>
+                <a href="#intro" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
+                    <i data-lucide="sparkles" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> Введение
                 </a>
-                <a href="#window" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:bg-purple-950/20 hover:text-purple-300 transition text-sm">
-                    <i data-lucide="monitor" class="w-4 h-4"></i> CreateWindow & Фоны
+                <a href="#step-1" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
+                    <i data-lucide="monitor" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 1. Создание Окна
                 </a>
-                <a href="#tabs" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:bg-purple-950/20 hover:text-purple-300 transition text-sm">
-                    <i data-lucide="folder" class="w-4 h-4"></i> CreateTab
+                <a href="#step-2" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
+                    <i data-lucide="folder" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 2. Вкладки (Tabs)
                 </a>
-                <a href="#toggles" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:bg-purple-950/20 hover:text-purple-300 transition text-sm">
-                    <i data-lucide="toggle-left" class="w-4 h-4"></i> CreateToggle
+                <a href="#step-3" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
+                    <i data-lucide="toggle-right" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 3. Переключатели
                 </a>
-                <a href="#buttons" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:bg-purple-950/20 hover:text-purple-300 transition text-sm">
-                    <i data-lucide="square-play" class="w-4 h-4"></i> CreateButton
+                <a href="#step-4" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
+                    <i data-lucide="mouse-pointer-click" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 4. Кнопки
                 </a>
-                <a href="#full-code" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:bg-purple-950/20 hover:text-purple-300 transition text-sm">
-                    <i data-lucide="code" class="w-4 h-4"></i> Полный шаблон
+                <a href="#step-5" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
+                    <i data-lucide="code-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 5. Полный Шаблон
                 </a>
             </div>
         </aside>
 
         <!-- Контент -->
-        <div class="md:col-span-3 space-y-12">
+        <div class="lg:col-span-9 space-y-10">
 
             <!-- Введение -->
-            <section id="intro" class="glass rounded-2xl p-6 space-y-4 floating-card">
-                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                    <i data-lucide="sparkles" class="text-purple-400"></i> Введение
-                </h2>
-                <p class="text-gray-400 leading-relaxed">
-                    Добро пожаловать в обновленную версию библиотеки <strong class="text-white">LuminorLib v1.1</strong>. Теперь интерфейс полностью поддерживает кастомную графику, анимированные задние фоны (.mp4/.webm) и умную систему иконок, которые автоматически скачиваются с вашего репозитория и адаптируются под размеры кнопок.
-                </p>
-                <div class="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-yellow-300 flex gap-3 text-sm">
-                    <i data-lucide="alert-triangle" class="w-5 h-5 shrink-0"></i>
-                    <div>
-                        Для корректной работы фонов и иконок ваш эксплоит (executor) должен обладать поддержкой функций работы с файловой системой (<code>writefile</code>, <code>makefolder</code>) и генерации локальных ассетов (<code>getcustomasset</code>).
+            <section id="intro" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.1s;">
+                <div class="space-y-5">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold mb-2">
+                        <i data-lucide="zap" class="w-3.5 h-3.5"></i> Обновление 1.1
                     </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                        Добро пожаловать в LuminorLib
+                    </h1>
+                    <p class="text-gray-400 leading-relaxed text-base md:text-lg max-w-3xl">
+                        Интерфейс получил глобальное обновление. Теперь библиотека поддерживает <strong class="text-purple-300 font-semibold">кастомную графику</strong>, <strong class="text-purple-300 font-semibold">анимированные видео-фоны (.mp4)</strong> и умную систему динамических иконок, которые автоматически загружаются из вашего репозитория.
+                    </p>
+                    
+                    <div class="flex items-start gap-4 p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20 mt-6">
+                        <div class="p-2 rounded-full bg-amber-500/10 shrink-0">
+                            <i data-lucide="triangle-alert" class="w-5 h-5 text-amber-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-amber-200 mb-1">Системные требования эксплоита</h4>
+                            <p class="text-xs md:text-sm text-amber-400/80 leading-relaxed">
+                                Для корректной отрисовки фонов и иконок ваш executor обязан поддерживать файловые функции <code>writefile</code>, <code>makefolder</code>, <code>isfile</code>, а также <code>getcustomasset</code>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Пагинация -->
+                <div class="mt-10 pt-6 border-t border-white/5 flex justify-end">
+                    <a href="#step-1" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]">
+                        Начать: Создание Окна 
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
                 </div>
             </section>
 
-            <!-- CreateWindow -->
-            <section id="window" class="glass rounded-2xl p-6 space-y-4">
-                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                    <i data-lucide="monitor" class="text-purple-400"></i> Создание окна и задний фон
-                </h2>
-                <p class="text-gray-400">
-                    Теперь в метод <code>CreateWindow</code> добавлен пятый (необязательный) параметр — <code>bgName</code>. Вы можете передать имя файла, и библиотека автоматически скачает его из вашей папки <code>Background</code> на GitHub.
-                </p>
-                
-                <h3 class="text-lg font-semibold text-purple-300">Доступные заготовки фонов:</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                    <div class="bg-black/30 p-3 rounded-lg border border-purple-900/20 text-center text-xs">
-                        <span class="font-bold block text-white">Pan1.mp4</span> (Анимация)
+            <!-- Шаг 1: Окно -->
+            <section id="step-1" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.2s;">
+                <div class="space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="text-purple-500">1.</span> Создание окна и фоны
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                        В метод <code>CreateWindow</code> добавлен пятый опциональный параметр — <span class="text-purple-300 font-mono text-sm bg-purple-500/10 px-1.5 py-0.5 rounded">bgName</span>. Передайте название файла, и библиотека скачает его и установит на задний фон вашего меню.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-4">
+                        <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
+                            <p class="text-sm font-bold text-white mb-0.5">Pan1.mp4</p>
+                            <span class="text-[10px] text-fuchsia-400 font-medium uppercase">Анимация</span>
+                        </div>
+                        <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
+                            <p class="text-sm font-bold text-white mb-0.5">Pan2.png</p>
+                            <span class="text-[10px] text-gray-500 font-medium uppercase">Статика</span>
+                        </div>
+                        <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
+                            <p class="text-sm font-bold text-white mb-0.5">Pan3.png</p>
+                            <span class="text-[10px] text-gray-500 font-medium uppercase">Статика</span>
+                        </div>
+                        <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
+                            <p class="text-sm font-bold text-white mb-0.5">Pan4.png</p>
+                            <span class="text-[10px] text-gray-500 font-medium uppercase">Статика</span>
+                        </div>
+                        <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
+                            <p class="text-sm font-bold text-white mb-0.5">Pan5.png</p>
+                            <span class="text-[10px] text-gray-500 font-medium uppercase">Статика</span>
+                        </div>
                     </div>
-                    <div class="bg-black/30 p-3 rounded-lg border border-purple-900/20 text-center text-xs">
-                        <span class="font-bold block text-white">Pan2.png</span> (Статичный)
-                    </div>
-                    <div class="bg-black/30 p-3 rounded-lg border border-purple-900/20 text-center text-xs">
-                        <span class="font-bold block text-white">Pan3.png</span> (Статичный)
-                    </div>
-                    <div class="bg-black/30 p-3 rounded-lg border border-purple-900/20 text-center text-xs">
-                        <span class="font-bold block text-white">Pan4.png</span> (Статичный)
-                    </div>
-                    <div class="bg-black/30 p-3 rounded-lg border border-purple-900/20 text-center text-xs">
-                        <span class="font-bold block text-white">Pan5.png</span> (Статичный)
-                    </div>
-                </div>
 
-                <div class="space-y-2">
-                    <p class="text-xs text-gray-500 uppercase font-semibold">Пример создания окна с анимированным фоном:</p>
-                    <pre class="p-4 rounded-xl text-sm overflow-x-auto text-emerald-400 border border-purple-900/20 font-mono">
-local Window = LuminorLib:CreateWindow(
-    "Luminor Premium", -- Заголовок
-    "Luminor_UI",       -- Имя ScreenGui
+                    <!-- Код Блок macOS style -->
+                    <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
+                        <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                            </div>
+                            <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                            <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                            </button>
+                        </div>
+                        <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>local Window = LuminorLib:CreateWindow(
+    "Luminor Premium", -- Заголовок (Title)
+    "Luminor_UI",       -- Имя ScreenGui (CoreGui)
     "by DADILK",        -- Ватермарка
     "Classic",          -- Цветовая тема
-    "Pan1.mp4"          -- Название файла фона (или "Pan3.png")
-)</pre>
+    "Pan1.mp4"          -- Название файла фона (С анимацией)
+)</code></pre>
+                    </div>
+                </div>
+
+                <!-- Пагинация -->
+                <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4">
+                    <a href="#intro" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
+                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+                        Введение
+                    </a>
+                    <a href="#step-2" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]">
+                        Шаг 2: Вкладки 
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
                 </div>
             </section>
 
-            <!-- CreateTab -->
-            <section id="tabs" class="glass rounded-2xl p-6 space-y-4">
-                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                    <i data-lucide="folder" class="text-purple-400"></i> Создание Вкладок (Tabs)
-                </h2>
-                <p class="text-gray-400">
-                    Вкладки теперь принимают параметр <code>iconName</code>. Иконка центрируется вместе с текстом вкладки. Если передать пустую строку в качестве текста, вкладка отобразит только саму иконку по центру.
-                </p>
-                <div class="space-y-2">
-                    <p class="text-xs text-gray-500 uppercase font-semibold">Пример добавления вкладок:</p>
-                    <pre class="p-4 rounded-xl text-sm overflow-x-auto text-emerald-400 border border-purple-900/20 font-mono">
--- Вкладка с текстом и иконкой
+            <!-- Шаг 2: Вкладки -->
+            <section id="step-2" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.3s;">
+                <div class="space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="text-purple-500">2.</span> Вкладки (Tabs)
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                        Вкладки теперь принимают параметр <span class="text-purple-300 font-mono text-sm bg-purple-500/10 px-1.5 py-0.5 rounded">iconName</span>. Иконка автоматически центрируется вместе с текстом. Если оставить текст пустым (<code>""</code>), то на вкладке будет отображаться только красивая иконка по центру.
+                    </p>
+
+                    <!-- Код Блок -->
+                    <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
+                        <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                            </div>
+                            <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                            <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                            </button>
+                        </div>
+                        <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Создаем обычную вкладку с иконкой и текстом
 local MainTab = Window:CreateTab("Главная", "home.ico")
 
--- Вкладка только с иконкой шестеренки
-local SettingsTab = Window:CreateTab("", "settings.ico")</pre>
+-- Создаем компактную вкладку только с иконкой шестеренки
+local SettingsTab = Window:CreateTab("", "settings.ico")</code></pre>
+                    </div>
+                </div>
+
+                <!-- Пагинация -->
+                <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4">
+                    <a href="#step-1" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
+                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+                        Шаг 1: Окно
+                    </a>
+                    <a href="#step-3" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]">
+                        Шаг 3: Переключатели 
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
                 </div>
             </section>
 
-            <!-- CreateToggle -->
-            <section id="toggles" class="glass rounded-2xl p-6 space-y-4">
-                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                    <i data-lucide="toggle-left" class="text-purple-400"></i> Переключатели (Toggles)
-                </h2>
-                <p class="text-gray-400">
-                    Переключатель теперь поддерживает умную иконку, которая динамически меняет цвет вместе с текстом (загорается выбранным неоновым цветом при активации).
-                </p>
-                <div class="space-y-2">
-                    <p class="text-xs text-gray-500 uppercase font-semibold">Пример создания:</p>
-                    <pre class="p-4 rounded-xl text-sm overflow-x-auto text-emerald-400 border border-purple-900/20 font-mono">
--- Сигнатура: CreateToggle(text, neonColor, defaultState, iconName, callback)
+            <!-- Шаг 3: Переключатели -->
+            <section id="step-3" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.4s;">
+                <div class="space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="text-purple-500">3.</span> Переключатели (Toggles)
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                        Тогглы теперь обладают <strong>умными иконками</strong>, которые загораются неоновым цветом при активации функции. Поддерживают пустой текст для центровки иконок.
+                    </p>
+
+                    <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
+                        <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                            </div>
+                            <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                            <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                            </button>
+                        </div>
+                        <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Синтаксис: CreateToggle(text, neonColor, defaultState, iconName, callback)
 MainTab:CreateToggle("Авто-Фарм", "green", false, "farm.ico", function(state)
-    print("Авто-фарм равен: " .. tostring(state))
+    print("Состояние Авто-фарма: " .. tostring(state))
 end)
 
--- Тоггл без текста (только иконка глаза по центру)
+-- Тоггл-кнопка (без текста, только светящийся глаз)
 MainTab:CreateToggle("", "purple", false, "eye.ico", function(state)
-    print("Глаз нажат: " .. tostring(state))
-end)</pre>
+    print("ESP включен: " .. tostring(state))
+end)</code></pre>
+                    </div>
+                </div>
+
+                <!-- Пагинация -->
+                <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4">
+                    <a href="#step-2" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
+                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+                        Шаг 2: Вкладки
+                    </a>
+                    <a href="#step-4" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]">
+                        Шаг 4: Кнопки 
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
                 </div>
             </section>
 
-            <!-- CreateButton -->
-            <section id="buttons" class="glass rounded-2xl p-6 space-y-4">
-                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                    <i data-lucide="square-play" class="text-purple-400"></i> Кнопки (Buttons)
-                </h2>
-                <p class="text-gray-400">
-                    Кнопки также обзавелись поддержкой иконок, которые размещаются справа от текста или по центру, если текст отсутствует. Оснащены эффектом радиального волны (ripple effect) при нажатии.
-                </p>
-                <div class="space-y-2">
-                    <p class="text-xs text-gray-500 uppercase font-semibold">Пример создания:</p>
-                    <pre class="p-4 rounded-xl text-sm overflow-x-auto text-emerald-400 border border-purple-900/20 font-mono">
--- Сигнатура: CreateButton(text, iconName, callback)
+            <!-- Шаг 4: Кнопки -->
+            <section id="step-4" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.5s;">
+                <div class="space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="text-purple-500">4.</span> Интерактивные Кнопки
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                        Кнопки получили красивый эффект волны (ripple-effect) при нажатии, а также возможность добавлять иконку рядом с текстом или использовать только иконку для минималистичных меню.
+                    </p>
+
+                    <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
+                        <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                            </div>
+                            <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                            <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                            </button>
+                        </div>
+                        <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Синтаксис: CreateButton(text, iconName, callback)
 MainTab:CreateButton("Телепорт к боссу", "teleport.ico", function()
-    print("Телепортация...")
+    print("Инициализация телепортации...")
 end)
 
--- Кнопка без текста (только центрированная иконка корзины)
+-- Минималистичная кнопка-иконка (например, для сброса)
 MainTab:CreateButton("", "trash.ico", function()
-    print("Очистка завершена!")
-end)</pre>
+    print("Конфиг очищен!")
+end)</code></pre>
+                    </div>
+                </div>
+
+                <!-- Пагинация -->
+                <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4">
+                    <a href="#step-3" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
+                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+                        Шаг 3: Переключатели
+                    </a>
+                    <a href="#step-5" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-blue-600/10 border border-blue-500/30 hover:bg-blue-600/20 text-blue-300 font-medium transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                        Финальный Шаг: Шаблон 
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
                 </div>
             </section>
 
-            <!-- Полный шаблон кода -->
-            <section id="full-code" class="glass rounded-2xl p-6 space-y-4">
-                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                    <i data-lucide="code" class="text-purple-400"></i> Готовый пример использования
-                </h2>
-                <p class="text-gray-400">
-                    Просто скопируйте и запустите этот пример в вашей любимой утилите для исполнения скриптов (например, Wave, Synapse, Solara и др.):
-                </p>
-                <pre class="p-4 rounded-xl text-xs sm:text-sm overflow-x-auto text-purple-300 border border-purple-900/40 font-mono">
-local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
+            <!-- Шаг 5: Полный скрипт -->
+            <section id="step-5" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.6s;">
+                <div class="space-y-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+                        <span class="text-blue-400">5.</span> Готовый шаблон скрипта
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
+                        Это мощный, готовый к запуску фундамент для вашего скрипта. В нём уже реализованы вкладки, тогглы для Аимбота и Авто-Фарма, телепорты, а также система сохранения конфигурации через файловую систему.
+                    </p>
 
--- 1. Создаем красивое окно с анимированным фоном Pan1
-local Window = LuminorLib:CreateWindow("Luminor Hub", "LuminorUI", "By DADILK", "classic", "Pan1.mp4")
+                    <div class="rounded-xl overflow-hidden border border-blue-500/30 bg-[#0a0a0f] shadow-[0_0_30px_rgba(59,130,246,0.1)] mt-6 relative">
+                        <div class="flex items-center justify-between px-4 py-3 bg-blue-500/5 border-b border-blue-500/20">
+                            <div class="flex gap-2">
+                                <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                            </div>
+                            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">ПОЛНЫЙ СКРИПТ LUA</span>
+                            <button onclick="copyCode(this)" class="flex items-center gap-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 transition-colors px-4 py-1.5 rounded-lg shadow-lg">
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Скопировать всё
+                            </button>
+                        </div>
+                        <pre class="p-5 text-sm text-blue-200 overflow-x-auto" style="max-height: 500px; overflow-y: auto;"><code>local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
 
--- 2. Добавляем вкладки с иконками
-local MainTab = Window:CreateTab("Основные", "home.ico")
-local ConfigTab = Window:CreateTab("Настройки", "settings.ico")
+-- 1. Инициализируем главное окно с премиум темой и анимированным фоном
+local Window = LuminorLib:CreateWindow(
+    "Luminor Premium Edition", 
+    "LuminorPrivateUI", 
+    "by DADILK & Co", 
+    "classic", 
+    "Pan1.mp4"
+)
 
--- 3. Добавляем интерактивные тогглы
-MainTab:CreateToggle("Включить Аимбот", "purple", false, "aim.ico", function(state)
-    print("Aimbot:", state)
+-- 2. Вкладки под разные задачи
+local MainTab = Window:CreateTab("Главная", "home.ico")
+local CombatTab = Window:CreateTab("Аимбот & Бой", "sword.ico")
+local VisualsTab = Window:CreateTab("ВХ / Визуалы", "eye.ico")
+local TeleportTab = Window:CreateTab("Телепортация", "map.ico")
+local ConfigTab = Window:CreateTab("Конфигурация", "settings.ico")
+
+-- Локальные настройки скрипта для отслеживания состояния
+local Config = {
+    Aimbot = false,
+    SilentAim = false,
+    EspPlayers = false,
+    EspBoxes = false,
+    AutoFarm = false,
+    SelectedMob = "Mage Level 50"
+}
+
+-- ================= [ ГЛАВНАЯ ВКЛАДКА ] =================
+MainTab:CreateToggle("Автоматический фарм (Auto-Farm)", "green", false, "farm.ico", function(state)
+    Config.AutoFarm = state
+    if state then
+        task.spawn(function()
+            while Config.AutoFarm do
+                task.wait(1)
+                print("Фармим мобов... Текущая цель: " .. Config.SelectedMob)
+            end
+        end)
+    end
 end)
 
-MainTab:CreateToggle("Быстрый бег", "cyan", true, "speed.ico", function(state)
-    print("Speedhack:", state)
+MainTab:CreateButton("Быстрая очистка карты", "trash.ico", function()
+    print("Карта очищена от мусорных объектов и эффектов!")
 end)
 
--- 4. Добавляем кнопки
-ConfigTab:CreateButton("Сохранить конфиг", "save.ico", function()
-    print("Конфиг успешно сохранен!")
+-- ================= [ ВКЛАДКА БОЯ ] =================
+CombatTab:CreateToggle("Включить Аимбот", "purple", false, "aim.ico", function(state)
+    Config.Aimbot = state
+    print("Аимбот изменен на:", state)
 end)
 
-ConfigTab:CreateButton("Сбросить все", "trash.ico", function()
-    print("Конфигурация сброшена.")
-end)</pre>
+CombatTab:CreateToggle("Сайлент Аим (Silent Aim)", "red", false, "crosshair.ico", function(state)
+    Config.SilentAim = state
+    print("Silent Aim:", state)
+end)
+
+-- ================= [ ВКЛАДКА ВИЗУАЛОВ ] =================
+VisualsTab:CreateToggle("Подсветка игроков (ESP)", "cyan", false, "user.ico", function(state)
+    Config.EspPlayers = state
+    print("ESP Игроков:", state)
+end)
+
+VisualsTab:CreateToggle("Отображать боксы", "blue", false, "box.ico", function(state)
+    Config.EspBoxes = state
+    print("Боксы игроков:", state)
+end)
+
+-- ================= [ ВКЛАДКА ТЕЛЕПОРТОВ ] =================
+TeleportTab:CreateButton("Телепорт в Безопасную зону", "shield.ico", function()
+    local lplayer = game.Players.LocalPlayer
+    if lplayer and lplayer.Character and lplayer.Character:FindFirstChild("HumanoidRootPart") then
+        lplayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)
+        print("Успешный телепорт в безопасную зону.")
+    end
+end)
+
+TeleportTab:CreateButton("Телепорт к Боссу", "teleport.ico", function()
+    print("Поиск босса на карте...")
+end)
+
+-- ================= [ ВКЛАДКА НАСТРОЕК ] =================
+ConfigTab:CreateButton("Сохранить текущие настройки", "save.ico", function()
+    if writefile then
+        local json = game:GetService("HttpService"):JSONEncode(Config)
+        writefile("Luminor_Config.json", json)
+        print("Конфиг успешно сохранен в файл 'Luminor_Config.json'!")
+    else
+        print("Ошибка: Ваш эксплоит не поддерживает writefile!")
+    end
+end)
+
+ConfigTab:CreateButton("Загрузить настройки", "download.ico", function()
+    if isfile and isfile("Luminor_Config.json") then
+        local json = readfile("Luminor_Config.json")
+        Config = game:GetService("HttpService"):JSONDecode(json)
+        print("Конфигурация успешно загружена!")
+    else
+        print("Ошибка: Файл настроек 'Luminor_Config.json' не найден!")
+    end
+end)
+
+ConfigTab:CreateButton("Уничтожить интерфейс (Unload)", "power.ico", function()
+    local gui = game:GetService("CoreGui"):FindFirstChild("LuminorPrivateUI") or game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("LuminorPrivateUI")
+    if gui then
+        gui:Destroy()
+        print("Интерфейс успешно выгружен из памяти игры.")
+    end
+end)</code></pre>
+                    </div>
+                </div>
+
+                <!-- Пагинация -->
+                <div class="mt-8 pt-6 border-t border-white/5 flex justify-start">
+                    <a href="#step-4" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
+                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
+                        Вернуться к кнопкам
+                    </a>
+                </div>
             </section>
 
         </div>
     </main>
 
-    <footer class="border-t border-purple-900/20 glass mt-24 py-8 text-center text-gray-500 text-sm">
-        <p>© 2026 LuminorGui. Разработано с душой для Roblox-комьюнити.</p>
+    <footer class="mt-10 py-10 border-t border-white/5 text-center text-gray-600 text-sm font-medium">
+        <p>© 2026 <span class="text-purple-400/50">LuminorGui</span>. Создано с любовью для разработчиков.</p>
     </footer>
 
     <script>
-        // Инициализация иконок Lucide
+        // Инициализация красивых иконок
         lucide.createIcons();
+
+        // Скрипт копирования кода с анимацией
+        function copyCode(btn) {
+            const container = btn.closest('div.rounded-xl');
+            const codeBlock = container.querySelector('code');
+            
+            navigator.clipboard.writeText(codeBlock.innerText.trim()).then(() => {
+                const originalHtml = btn.innerHTML;
+                const originalClasses = btn.className;
+                
+                // Временный стиль "Скопировано"
+                btn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i> <span>Скопировано!</span>';
+                btn.className = 'flex items-center gap-1.5 text-xs font-bold text-white bg-emerald-500 px-4 py-1.5 rounded-lg shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all';
+                lucide.createIcons();
+
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.className = originalClasses;
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
     </script>
 </body>
 </html>
