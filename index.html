@@ -21,7 +21,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Анимированный градиент на фоне */
         .bg-mesh {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -37,7 +36,6 @@
             100% { transform: scale(1.1); opacity: 1; }
         }
 
-        /* Премиум стекло */
         .glass-panel {
             background: rgba(15, 15, 20, 0.6);
             backdrop-filter: blur(16px);
@@ -52,7 +50,6 @@
             box-shadow: 0 8px 40px rgba(168, 85, 247, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        /* Плавающие буквы */
         @keyframes floatLetter {
             0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(168,85,247,0.3); }
             50% { transform: translateY(-8px); text-shadow: 0 12px 24px rgba(168,85,247,0.8); }
@@ -62,7 +59,6 @@
             animation: floatLetter 3s ease-in-out infinite;
         }
 
-        /* Скроллбар */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #050508; }
         ::-webkit-scrollbar-thumb { background: #2d2042; border-radius: 10px; }
@@ -70,7 +66,6 @@
 
         pre { font-family: 'JetBrains Mono', monospace; }
         
-        /* Плавное появление секций */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -174,7 +169,7 @@
                         <span class="text-purple-500">1.</span> Создание окна, фоны и Platoboost
                     </h2>
                     <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-                        В метод <code>CreateWindow</code> добавлены новые мощные параметры. Вы можете указать название фона (или написать <code class="text-purple-300">"none"</code> для отключения фона), а также включить встроенную ключ-систему (<code>true/false</code>) с вашим ID проекта из <strong>Platoboost</strong>.
+                        В метод <code>CreateWindow</code> добавлены новые мощные параметры. Вы можете указать название фона (или написать <code class="text-purple-300">"none"</code> для отключения фона), а также включить встроенную ключ-систему через опцию <code class="text-purple-300">{ keySystem = true }</code> (или <code>false</code>). ID вашего проекта Platoboost задаётся непосредственно в исходном коде библиотеки.
                     </p>
                     
                     <h3 class="text-lg font-semibold text-purple-300 mt-4">Доступные заготовки фонов:</h3>
@@ -223,8 +218,7 @@
     "by DADILK",        -- Ватермарка
     "Classic",          -- Цветовая тема
     "none",             -- Фон ("Pan1.mp4", "Pan2.png" или "none")
-    true,               -- Ключ-система (true = включить, false = выключить)
-    "12345"             -- ID проекта на сайте Platoboost
+    { keySystem = true } -- Опции: ключ-система (true = включить, false = выключить)
 )</code></pre>
                     </div>
                 </div>
@@ -263,10 +257,10 @@
                             </button>
                         </div>
                         <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Создаем обычную вкладку с иконкой и текстом
-local MainTab = Window:CreateTab("Главная", "home.ico")
+local MainTab = Window:CreateTab("Главная", "home.png")
 
 -- Создаем компактную вкладку только с иконкой шестеренки
-local SettingsTab = Window:CreateTab("", "settings.ico")</code></pre>
+local SettingsTab = Window:CreateTab("", "settings.png")</code></pre>
                     </div>
                 </div>
 
@@ -304,12 +298,12 @@ local SettingsTab = Window:CreateTab("", "settings.ico")</code></pre>
                             </button>
                         </div>
                         <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Синтаксис: CreateToggle(text, neonColor, defaultState, iconName, callback)
-MainTab:CreateToggle("Авто-Фарм", "green", false, "farm.ico", function(state)
+MainTab:CreateToggle("Авто-Фарм", "green", false, "farm.png", function(state)
     print("Состояние Авто-фарма: " .. tostring(state))
 end)
 
 -- Тоггл-кнопка (без текста, только светящийся глаз)
-MainTab:CreateToggle("", "purple", false, "eye.ico", function(state)
+MainTab:CreateToggle("", "purple", false, "eye.png", function(state)
     print("ESP включен: " .. tostring(state))
 end)</code></pre>
                     </div>
@@ -349,12 +343,12 @@ end)</code></pre>
                             </button>
                         </div>
                         <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Синтаксис: CreateButton(text, iconName, callback)
-MainTab:CreateButton("Телепорт к боссу", "teleport.ico", function()
+MainTab:CreateButton("Телепорт к боссу", "teleport.png", function()
     print("Инициализация телепортации...")
 end)
 
 -- Минималистичная кнопка-иконка (например, для сброса)
-MainTab:CreateButton("", "trash.ico", function()
+MainTab:CreateButton("", "trash.png", function()
     print("Конфиг очищен!")
 end)</code></pre>
                     </div>
@@ -402,16 +396,15 @@ local Window = LuminorLib:CreateWindow(
     "by DADILK & Co", 
     "classic", 
     "none",     -- Фон отключен ("none" / "Pan1.mp4")
-    true,       -- Ключ-система включена
-    "12345"     -- Ваш ID проекта Platoboost
+    { keySystem = true }   -- Ключ-система включена (Platoboost)
 )
 
 -- 2. Вкладки под разные задачи
-local MainTab = Window:CreateTab("Главная", "home.ico")
-local CombatTab = Window:CreateTab("Аимбот & Бой", "sword.ico")
-local VisualsTab = Window:CreateTab("ВХ / Визуалы", "eye.ico")
-local TeleportTab = Window:CreateTab("Телепортация", "map.ico")
-local ConfigTab = Window:CreateTab("Конфигурация", "settings.ico")
+local MainTab = Window:CreateTab("Главная", "home.png")
+local CombatTab = Window:CreateTab("Аимбот & Бой", "sword.png")
+local VisualsTab = Window:CreateTab("ВХ / Визуалы", "eye.png")
+local TeleportTab = Window:CreateTab("Телепортация", "map.png")
+local ConfigTab = Window:CreateTab("Конфигурация", "settings.png")
 
 -- Локальные настройки скрипта для отслеживания состояния
 local Config = {
@@ -424,7 +417,7 @@ local Config = {
 }
 
 -- ================= [ ГЛАВНАЯ ВКЛАДКА ] =================
-MainTab:CreateToggle("Автоматический фарм (Auto-Farm)", "green", false, "farm.ico", function(state)
+MainTab:CreateToggle("Автоматический фарм (Auto-Farm)", "green", false, "farm.png", function(state)
     Config.AutoFarm = state
     if state then
         task.spawn(function()
@@ -436,34 +429,34 @@ MainTab:CreateToggle("Автоматический фарм (Auto-Farm)", "green
     end
 end)
 
-MainTab:CreateButton("Быстрая очистка карты", "trash.ico", function()
+MainTab:CreateButton("Быстрая очистка карты", "trash.png", function()
     print("Карта очищена от мусорных объектов и эффектов!")
 end)
 
 -- ================= [ ВКЛАДКА БОЯ ] =================
-CombatTab:CreateToggle("Включить Аимбот", "purple", false, "aim.ico", function(state)
+CombatTab:CreateToggle("Включить Аимбот", "purple", false, "aim.png", function(state)
     Config.Aimbot = state
     print("Аимбот изменен на:", state)
 end)
 
-CombatTab:CreateToggle("Сайлент Аим (Silent Aim)", "red", false, "crosshair.ico", function(state)
+CombatTab:CreateToggle("Сайлент Аим (Silent Aim)", "red", false, "crosshair.png", function(state)
     Config.SilentAim = state
     print("Silent Aim:", state)
 end)
 
 -- ================= [ ВКЛАДКА ВИЗУАЛОВ ] =================
-VisualsTab:CreateToggle("Подсветка игроков (ESP)", "cyan", false, "user.ico", function(state)
+VisualsTab:CreateToggle("Подсветка игроков (ESP)", "cyan", false, "user.png", function(state)
     Config.EspPlayers = state
     print("ESP Игроков:", state)
 end)
 
-VisualsTab:CreateToggle("Отображать боксы", "blue", false, "box.ico", function(state)
+VisualsTab:CreateToggle("Отображать боксы", "blue", false, "box.png", function(state)
     Config.EspBoxes = state
     print("Боксы игроков:", state)
 end)
 
 -- ================= [ ВКЛАДКА ТЕЛЕПОРТОВ ] =================
-TeleportTab:CreateButton("Телепорт в Безопасную зону", "shield.ico", function()
+TeleportTab:CreateButton("Телепорт в Безопасную зону", "shield.png", function()
     local lplayer = game.Players.LocalPlayer
     if lplayer and lplayer.Character and lplayer.Character:FindFirstChild("HumanoidRootPart") then
         lplayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)
@@ -471,12 +464,12 @@ TeleportTab:CreateButton("Телепорт в Безопасную зону", "s
     end
 end)
 
-TeleportTab:CreateButton("Телепорт к Боссу", "teleport.ico", function()
+TeleportTab:CreateButton("Телепорт к Боссу", "teleport.png", function()
     print("Поиск босса на карте...")
 end)
 
 -- ================= [ ВКЛАДКА НАСТРОЕК ] =================
-ConfigTab:CreateButton("Сохранить текущие настройки", "save.ico", function()
+ConfigTab:CreateButton("Сохранить текущие настройки", "save.png", function()
     if writefile then
         local json = game:GetService("HttpService"):JSONEncode(Config)
         writefile("Luminor_Config.json", json)
@@ -486,7 +479,7 @@ ConfigTab:CreateButton("Сохранить текущие настройки", "
     end
 end)
 
-ConfigTab:CreateButton("Загрузить настройки", "download.ico", function()
+ConfigTab:CreateButton("Загрузить настройки", "download.png", function()
     if isfile and isfile("Luminor_Config.json") then
         local json = readfile("Luminor_Config.json")
         Config = game:GetService("HttpService"):JSONDecode(json)
@@ -496,7 +489,7 @@ ConfigTab:CreateButton("Загрузить настройки", "download.ico", 
     end
 end)
 
-ConfigTab:CreateButton("Уничтожить интерфейс (Unload)", "power.ico", function()
+ConfigTab:CreateButton("Уничтожить интерфейс (Unload)", "power.png", function()
     local gui = game:GetService("CoreGui"):FindFirstChild("LuminorPrivateUI") or game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("LuminorPrivateUI")
     if gui then
         gui:Destroy()
@@ -522,10 +515,8 @@ end)</code></pre>
     </footer>
 
     <script>
-        // Инициализация красивых иконок
         lucide.createIcons();
 
-        // Скрипт копирования кода с анимацией
         function copyCode(btn) {
             const container = btn.closest('div.rounded-xl');
             const codeBlock = container.querySelector('code');
@@ -534,7 +525,6 @@ end)</code></pre>
                 const originalHtml = btn.innerHTML;
                 const originalClasses = btn.className;
                 
-                // Временный стиль "Скопировано"
                 btn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i> <span>Скопировано!</span>';
                 btn.className = 'flex items-center gap-1.5 text-xs font-bold text-white bg-emerald-500 px-4 py-1.5 rounded-lg shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all';
                 lucide.createIcons();
