@@ -82,11 +82,9 @@
 
     <div class="bg-mesh"></div>
 
-    <!-- Навигация (Header) -->
     <header class="glass-panel sticky top-0 z-50 border-b-0 border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
             
-            <!-- Логотип -->
             <div class="flex items-center gap-4 cursor-default">
                 <span class="text-2xl font-black tracking-widest flex">
                     <span class="floating-letter text-fuchsia-400" style="animation-delay: 0s;">L</span>
@@ -111,7 +109,6 @@
 
     <main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
         
-        <!-- Сайдбар (Оглавление) -->
         <aside class="lg:col-span-3 hidden lg:block">
             <div class="sticky top-28 flex flex-col gap-1.5 p-4 glass-panel rounded-2xl">
                 <p class="text-xs font-bold text-gray-500 tracking-widest uppercase mb-2 ml-2">Документация</p>
@@ -136,10 +133,8 @@
             </div>
         </aside>
 
-        <!-- Контент -->
         <div class="lg:col-span-9 space-y-10">
 
-            <!-- Введение -->
             <section id="intro" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.1s;">
                 <div class="space-y-5">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold mb-2">
@@ -149,7 +144,7 @@
                         Добро пожаловать в LuminorLib
                     </h1>
                     <p class="text-gray-400 leading-relaxed text-base md:text-lg max-w-3xl">
-                        Интерфейс получил глобальное обновление. Теперь библиотека поддерживает <strong class="text-purple-300 font-semibold">кастомную графику</strong>, <strong class="text-purple-300 font-semibold">анимированные видео-фоны (.mp4)</strong> и умную систему динамических иконок, которые автоматически загружаются из вашего репозитория.
+                        Интерфейс получил глобальное обновление. Теперь библиотека поддерживает <strong class="text-purple-300 font-semibold">кастомную графику</strong>, <strong class="text-purple-300 font-semibold">интеграцию Platoboost (Key System)</strong>, анимированные видео-фоны (.mp4) и умную систему динамических иконок, которые автоматически загружаются из вашего репозитория.
                     </p>
                     
                     <div class="flex items-start gap-4 p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20 mt-6">
@@ -165,7 +160,6 @@
                     </div>
                 </div>
 
-                <!-- Пагинация -->
                 <div class="mt-10 pt-6 border-t border-white/5 flex justify-end">
                     <a href="#step-1" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]">
                         Начать: Создание Окна 
@@ -174,17 +168,21 @@
                 </div>
             </section>
 
-            <!-- Шаг 1: Окно -->
             <section id="step-1" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.2s;">
                 <div class="space-y-6">
                     <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
-                        <span class="text-purple-500">1.</span> Создание окна и фоны
+                        <span class="text-purple-500">1.</span> Создание окна, фоны и Platoboost
                     </h2>
                     <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-                        В метод <code>CreateWindow</code> добавлен пятый опциональный параметр — <span class="text-purple-300 font-mono text-sm bg-purple-500/10 px-1.5 py-0.5 rounded">bgName</span>. Передайте название файла, и библиотека скачает его и установит на задний фон вашего меню.
+                        В метод <code>CreateWindow</code> добавлены новые мощные параметры. Вы можете указать название фона (или написать <code class="text-purple-300">"none"</code> для отключения фона), а также включить встроенную ключ-систему (<code>true/false</code>) с вашим ID проекта из <strong>Platoboost</strong>.
                     </p>
                     
-                    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-4">
+                    <h3 class="text-lg font-semibold text-purple-300 mt-4">Доступные заготовки фонов:</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-6 gap-3">
+                        <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
+                            <p class="text-sm font-bold text-white mb-0.5">none</p>
+                            <span class="text-[10px] text-red-400 font-medium uppercase">Без фона</span>
+                        </div>
                         <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
                             <p class="text-sm font-bold text-white mb-0.5">Pan1.mp4</p>
                             <span class="text-[10px] text-fuchsia-400 font-medium uppercase">Анимация</span>
@@ -207,7 +205,6 @@
                         </div>
                     </div>
 
-                    <!-- Код Блок macOS style -->
                     <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
                         <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
                             <div class="flex gap-2">
@@ -225,12 +222,13 @@
     "Luminor_UI",       -- Имя ScreenGui (CoreGui)
     "by DADILK",        -- Ватермарка
     "Classic",          -- Цветовая тема
-    "Pan1.mp4"          -- Название файла фона (С анимацией)
+    "none",             -- Фон ("Pan1.mp4", "Pan2.png" или "none")
+    true,               -- Ключ-система (true = включить, false = выключить)
+    "12345"             -- ID проекта на сайте Platoboost
 )</code></pre>
                     </div>
                 </div>
 
-                <!-- Пагинация -->
                 <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4">
                     <a href="#intro" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
                         <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
@@ -243,7 +241,6 @@
                 </div>
             </section>
 
-            <!-- Шаг 2: Вкладки -->
             <section id="step-2" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.3s;">
                 <div class="space-y-6">
                     <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
@@ -253,7 +250,6 @@
                         Вкладки теперь принимают параметр <span class="text-purple-300 font-mono text-sm bg-purple-500/10 px-1.5 py-0.5 rounded">iconName</span>. Иконка автоматически центрируется вместе с текстом. Если оставить текст пустым (<code>""</code>), то на вкладке будет отображаться только красивая иконка по центру.
                     </p>
 
-                    <!-- Код Блок -->
                     <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
                         <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
                             <div class="flex gap-2">
@@ -274,7 +270,6 @@ local SettingsTab = Window:CreateTab("", "settings.ico")</code></pre>
                     </div>
                 </div>
 
-                <!-- Пагинация -->
                 <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4">
                     <a href="#step-1" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
                         <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
@@ -287,14 +282,13 @@ local SettingsTab = Window:CreateTab("", "settings.ico")</code></pre>
                 </div>
             </section>
 
-            <!-- Шаг 3: Переключатели -->
             <section id="step-3" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.4s;">
                 <div class="space-y-6">
                     <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
                         <span class="text-purple-500">3.</span> Переключатели (Toggles)
                     </h2>
                     <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-                        Тогглы теперь обладают <strong>умными иконками</strong>, которые загораются неоновым цветом при активации функции. Поддерживают пустой текст для центровки иконок.
+                        Тогглы теперь обладают <strong>умными иконками</strong>, которые загораются неоновым цветом при активации функции. Поддерживают пустой текст для центровки иконок. <em>(Примечание: кнопки и тогглы всегда остаются непрозрачными для лучшей видимости).</em>
                     </p>
 
                     <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
@@ -321,7 +315,6 @@ end)</code></pre>
                     </div>
                 </div>
 
-                <!-- Пагинация -->
                 <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4">
                     <a href="#step-2" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
                         <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
@@ -334,7 +327,6 @@ end)</code></pre>
                 </div>
             </section>
 
-            <!-- Шаг 4: Кнопки -->
             <section id="step-4" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.5s;">
                 <div class="space-y-6">
                     <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
@@ -368,7 +360,6 @@ end)</code></pre>
                     </div>
                 </div>
 
-                <!-- Пагинация -->
                 <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4">
                     <a href="#step-3" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
                         <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
@@ -381,7 +372,6 @@ end)</code></pre>
                 </div>
             </section>
 
-            <!-- Шаг 5: Полный скрипт -->
             <section id="step-5" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.6s;">
                 <div class="space-y-6">
                     <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
@@ -405,13 +395,15 @@ end)</code></pre>
                         </div>
                         <pre class="p-5 text-sm text-blue-200 overflow-x-auto" style="max-height: 500px; overflow-y: auto;"><code>local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
 
--- 1. Инициализируем главное окно с премиум темой и анимированным фоном
+-- 1. Инициализируем главное окно с премиум темой, отключенным фоном и ключ-системой
 local Window = LuminorLib:CreateWindow(
     "Luminor Premium Edition", 
     "LuminorPrivateUI", 
     "by DADILK & Co", 
     "classic", 
-    "Pan1.mp4"
+    "none",     -- Фон отключен ("none" / "Pan1.mp4")
+    true,       -- Ключ-система включена
+    "12345"     -- Ваш ID проекта Platoboost
 )
 
 -- 2. Вкладки под разные задачи
@@ -514,7 +506,6 @@ end)</code></pre>
                     </div>
                 </div>
 
-                <!-- Пагинация -->
                 <div class="mt-8 pt-6 border-t border-white/5 flex justify-start">
                     <a href="#step-4" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
                         <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
