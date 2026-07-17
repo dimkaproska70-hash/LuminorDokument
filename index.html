@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuminorLib v1.1 — Премиум Документация</title>
+    <title>LuminorLib v1.2 — Премиум Документация</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -91,7 +91,7 @@
                     <span class="floating-letter text-blue-400" style="animation-delay: 0.6s;">R</span>
                 </span>
                 <div class="px-2.5 py-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-[10px] font-bold text-purple-300 tracking-wider shadow-[0_0_10px_rgba(168,85,247,0.2)]">
-                    VERSION 1.1
+                    VERSION 1.2
                 </div>
             </div>
             
@@ -133,13 +133,13 @@
             <section id="intro" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.1s;">
                 <div class="space-y-5">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold mb-2">
-                        <i data-lucide="zap" class="w-3.5 h-3.5"></i> Обновление 1.1
+                        <i data-lucide="zap" class="w-3.5 h-3.5"></i> Обновление 1.2
                     </div>
                     <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
                         Добро пожаловать в LuminorLib
                     </h1>
                     <p class="text-gray-400 leading-relaxed text-base md:text-lg max-w-3xl">
-                        Интерфейс получил глобальное обновление. Теперь библиотека поддерживает <strong class="text-purple-300 font-semibold">кастомную графику</strong>, <strong class="text-purple-300 font-semibold">интеграцию Platoboost (Key System)</strong>, анимированные видео-фоны (.mp4) и умную систему динамических иконок, которые автоматически загружаются из вашего репозитория.
+                        Библиотека полностью обновлена: <strong class="text-purple-300 font-semibold">умная загрузка ассетов</strong> (иконки и фоны указываются просто именем без расширения), <strong class="text-purple-300 font-semibold">интеграция Platoboost с двумя полями</strong> (ID и API Key), а также передача настроек ключ-системы прямо при создании окна.
                     </p>
                     
                     <div class="flex items-start gap-4 p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20 mt-6">
@@ -169,7 +169,7 @@
                         <span class="text-purple-500">1.</span> Создание окна, фоны и Platoboost
                     </h2>
                     <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-                        В метод <code>CreateWindow</code> добавлены новые мощные параметры. Вы можете указать название фона (или написать <code class="text-purple-300">"none"</code> для отключения фона), а также включить встроенную ключ-систему через опцию <code class="text-purple-300">{ keySystem = true }</code> (или <code>false</code>). ID вашего проекта Platoboost задаётся непосредственно в исходном коде библиотеки.
+                        Метод <code>CreateWindow</code> теперь принимает <strong>таблицу опций</strong> шестым параметром. Вы можете указать название фона простым словом (например <code class="text-purple-300">"Pan1"</code> — библиотека сама найдёт подходящий файл .png/.mp4), а также передать <code>platoboostId</code> и <code>platoboostApiKey</code> для автоматического заполнения полей ключ-системы.
                     </p>
                     
                     <h3 class="text-lg font-semibold text-purple-300 mt-4">Доступные заготовки фонов:</h3>
@@ -179,23 +179,23 @@
                             <span class="text-[10px] text-red-400 font-medium uppercase">Без фона</span>
                         </div>
                         <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
-                            <p class="text-sm font-bold text-white mb-0.5">Pan1.mp4</p>
+                            <p class="text-sm font-bold text-white mb-0.5">Pan1</p>
                             <span class="text-[10px] text-fuchsia-400 font-medium uppercase">Анимация</span>
                         </div>
                         <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
-                            <p class="text-sm font-bold text-white mb-0.5">Pan2.png</p>
+                            <p class="text-sm font-bold text-white mb-0.5">Pan2</p>
                             <span class="text-[10px] text-gray-500 font-medium uppercase">Статика</span>
                         </div>
                         <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
-                            <p class="text-sm font-bold text-white mb-0.5">Pan3.png</p>
+                            <p class="text-sm font-bold text-white mb-0.5">Pan3</p>
                             <span class="text-[10px] text-gray-500 font-medium uppercase">Статика</span>
                         </div>
                         <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
-                            <p class="text-sm font-bold text-white mb-0.5">Pan4.png</p>
+                            <p class="text-sm font-bold text-white mb-0.5">Pan4</p>
                             <span class="text-[10px] text-gray-500 font-medium uppercase">Статика</span>
                         </div>
                         <div class="bg-black/40 border border-white/5 p-3 rounded-xl text-center shadow-inner">
-                            <p class="text-sm font-bold text-white mb-0.5">Pan5.png</p>
+                            <p class="text-sm font-bold text-white mb-0.5">Pan5</p>
                             <span class="text-[10px] text-gray-500 font-medium uppercase">Статика</span>
                         </div>
                     </div>
@@ -213,14 +213,21 @@
                             </button>
                         </div>
                         <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>local Window = LuminorLib:CreateWindow(
-    "Luminor Premium", -- Заголовок (Title)
-    "Luminor_UI",       -- Имя ScreenGui (CoreGui)
-    "by DADILK",        -- Ватермарка
-    "Classic",          -- Цветовая тема
-    "none",             -- Фон ("Pan1.mp4", "Pan2.png" или "none")
-    { keySystem = true } -- Опции: ключ-система (true = включить, false = выключить)
+    "Luminor Premium",   -- Заголовок (Title)
+    "Luminor_UI",        -- Имя ScreenGui (CoreGui)
+    "by DADILK",         -- Ватермарка
+    "Classic",           -- Цветовая тема
+    "Pan1",              -- Фон (можно "none", "Pan2", "Pan3"...)
+    {
+        keySystem = true,               -- Включить ключ-систему
+        platoboostId = "123456",        -- Ваш ID проекта
+        platoboostApiKey = "key_abcde"  -- Ваш API ключ
+    }
 )</code></pre>
                     </div>
+                    <p class="text-gray-500 text-xs mt-2">
+                        Если не указывать <code>platoboostId</code> и <code>platoboostApiKey</code>, поля в окне ключ-системы будут пустыми и их можно заполнить вручную.
+                    </p>
                 </div>
 
                 <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4">
@@ -241,7 +248,7 @@
                         <span class="text-purple-500">2.</span> Вкладки (Tabs)
                     </h2>
                     <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-                        Вкладки теперь принимают параметр <span class="text-purple-300 font-mono text-sm bg-purple-500/10 px-1.5 py-0.5 rounded">iconName</span>. Иконка автоматически центрируется вместе с текстом. Если оставить текст пустым (<code>""</code>), то на вкладке будет отображаться только красивая иконка по центру.
+                        Иконки вкладок теперь указываются <strong>именем без расширения</strong> (например, <code class="text-purple-300">"home"</code>). Библиотека автоматически найдет файл <code>home.png</code> или <code>home.PNG</code> в репозитории. Можно оставить текст пустым — тогда вкладка будет содержать только иконку по центру.
                     </p>
 
                     <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
@@ -256,11 +263,11 @@
                                 <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                             </button>
                         </div>
-                        <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Создаем обычную вкладку с иконкой и текстом
-local MainTab = Window:CreateTab("Главная", "home.png")
+                        <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Обычная вкладка с иконкой и текстом
+local MainTab = Window:CreateTab("Главная", "home")
 
--- Создаем компактную вкладку только с иконкой шестеренки
-local SettingsTab = Window:CreateTab("", "settings.png")</code></pre>
+-- Компактная вкладка только с иконкой шестеренки
+local SettingsTab = Window:CreateTab("", "settings")</code></pre>
                     </div>
                 </div>
 
@@ -282,7 +289,7 @@ local SettingsTab = Window:CreateTab("", "settings.png")</code></pre>
                         <span class="text-purple-500">3.</span> Переключатели (Toggles)
                     </h2>
                     <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-                        Тогглы теперь обладают <strong>умными иконками</strong>, которые загораются неоновым цветом при активации функции. Поддерживают пустой текст для центровки иконок. <em>(Примечание: кнопки и тогглы всегда остаются непрозрачными для лучшей видимости).</em>
+                        Тогглы поддерживают <strong>умные иконки</strong> — просто передайте имя без расширения, и оно загорится неоновым цветом при активации. Можно оставить текст пустым, чтобы получить компактную кнопку-иконку.
                     </p>
 
                     <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
@@ -298,12 +305,12 @@ local SettingsTab = Window:CreateTab("", "settings.png")</code></pre>
                             </button>
                         </div>
                         <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Синтаксис: CreateToggle(text, neonColor, defaultState, iconName, callback)
-MainTab:CreateToggle("Авто-Фарм", "green", false, "farm.png", function(state)
+MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
     print("Состояние Авто-фарма: " .. tostring(state))
 end)
 
--- Тоггл-кнопка (без текста, только светящийся глаз)
-MainTab:CreateToggle("", "purple", false, "eye.png", function(state)
+-- Тоггл-кнопка без текста (только светящаяся иконка)
+MainTab:CreateToggle("", "purple", false, "eye", function(state)
     print("ESP включен: " .. tostring(state))
 end)</code></pre>
                     </div>
@@ -327,7 +334,7 @@ end)</code></pre>
                         <span class="text-purple-500">4.</span> Интерактивные Кнопки
                     </h2>
                     <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-                        Кнопки получили красивый эффект волны (ripple-effect) при нажатии, а также возможность добавлять иконку рядом с текстом или использовать только иконку для минималистичных меню.
+                        Кнопки с эффектом волны при нажатии. Иконка задаётся так же — именем без расширения. Если текст не нужен, кнопка отобразится с одной иконкой по центру.
                     </p>
 
                     <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
@@ -343,12 +350,12 @@ end)</code></pre>
                             </button>
                         </div>
                         <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Синтаксис: CreateButton(text, iconName, callback)
-MainTab:CreateButton("Телепорт к боссу", "teleport.png", function()
+MainTab:CreateButton("Телепорт к боссу", "teleport", function()
     print("Инициализация телепортации...")
 end)
 
--- Минималистичная кнопка-иконка (например, для сброса)
-MainTab:CreateButton("", "trash.png", function()
+-- Минималистичная кнопка-иконка (сброс)
+MainTab:CreateButton("", "trash", function()
     print("Конфиг очищен!")
 end)</code></pre>
                     </div>
@@ -372,7 +379,7 @@ end)</code></pre>
                         <span class="text-blue-400">5.</span> Готовый шаблон скрипта
                     </h2>
                     <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-                        Это мощный, готовый к запуску фундамент для вашего скрипта. В нём уже реализованы вкладки, тогглы для Аимбота и Авто-Фарма, телепорты, а также система сохранения конфигурации через файловую систему.
+                        Полный фундамент для вашего скрипта с примерами всех элементов, сохранением конфигурации и новой ключ-системой Platoboost.
                     </p>
 
                     <div class="rounded-xl overflow-hidden border border-blue-500/30 bg-[#0a0a0f] shadow-[0_0_30px_rgba(59,130,246,0.1)] mt-6 relative">
@@ -389,24 +396,27 @@ end)</code></pre>
                         </div>
                         <pre class="p-5 text-sm text-blue-200 overflow-x-auto" style="max-height: 500px; overflow-y: auto;"><code>local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
 
--- 1. Инициализируем главное окно с премиум темой, отключенным фоном и ключ-системой
+-- 1. Инициализация окна с ключ-системой и фоном Pan1
 local Window = LuminorLib:CreateWindow(
-    "Luminor Premium Edition", 
-    "LuminorPrivateUI", 
-    "by DADILK & Co", 
-    "classic", 
-    "none",     -- Фон отключен ("none" / "Pan1.mp4")
-    { keySystem = true }   -- Ключ-система включена (Platoboost)
+    "Luminor Premium Edition",
+    "LuminorPrivateUI",
+    "by DADILK & Co",
+    "classic",
+    "Pan1",   -- Фон (автоматически найдёт Pan1.mp4 / Pan1.png)
+    {
+        keySystem = true,
+        platoboostId = "123456",          -- Ваш ID проекта
+        platoboostApiKey = "your_api_key" -- Ваш API ключ
+    }
 )
 
--- 2. Вкладки под разные задачи
-local MainTab = Window:CreateTab("Главная", "home.png")
-local CombatTab = Window:CreateTab("Аимбот & Бой", "sword.png")
-local VisualsTab = Window:CreateTab("ВХ / Визуалы", "eye.png")
-local TeleportTab = Window:CreateTab("Телепортация", "map.png")
-local ConfigTab = Window:CreateTab("Конфигурация", "settings.png")
+-- 2. Вкладки (иконки без расширений)
+local MainTab = Window:CreateTab("Главная", "home")
+local CombatTab = Window:CreateTab("Аимбот & Бой", "sword")
+local VisualsTab = Window:CreateTab("ВХ / Визуалы", "eye")
+local TeleportTab = Window:CreateTab("Телепортация", "map")
+local ConfigTab = Window:CreateTab("Конфигурация", "settings")
 
--- Локальные настройки скрипта для отслеживания состояния
 local Config = {
     Aimbot = false,
     SilentAim = false,
@@ -417,84 +427,79 @@ local Config = {
 }
 
 -- ================= [ ГЛАВНАЯ ВКЛАДКА ] =================
-MainTab:CreateToggle("Автоматический фарм (Auto-Farm)", "green", false, "farm.png", function(state)
+MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
     Config.AutoFarm = state
     if state then
         task.spawn(function()
             while Config.AutoFarm do
                 task.wait(1)
-                print("Фармим мобов... Текущая цель: " .. Config.SelectedMob)
+                print("Фармим... Текущая цель: " .. Config.SelectedMob)
             end
         end)
     end
 end)
 
-MainTab:CreateButton("Быстрая очистка карты", "trash.png", function()
-    print("Карта очищена от мусорных объектов и эффектов!")
+MainTab:CreateButton("Очистить карту", "trash", function()
+    print("Карта очищена!")
 end)
 
 -- ================= [ ВКЛАДКА БОЯ ] =================
-CombatTab:CreateToggle("Включить Аимбот", "purple", false, "aim.png", function(state)
+CombatTab:CreateToggle("Аимбот", "purple", false, "aim", function(state)
     Config.Aimbot = state
-    print("Аимбот изменен на:", state)
+    print("Аимбот:", state)
 end)
 
-CombatTab:CreateToggle("Сайлент Аим (Silent Aim)", "red", false, "crosshair.png", function(state)
+CombatTab:CreateToggle("Сайлент Аим", "red", false, "crosshair", function(state)
     Config.SilentAim = state
     print("Silent Aim:", state)
 end)
 
 -- ================= [ ВКЛАДКА ВИЗУАЛОВ ] =================
-VisualsTab:CreateToggle("Подсветка игроков (ESP)", "cyan", false, "user.png", function(state)
+VisualsTab:CreateToggle("ESP игроков", "cyan", false, "user", function(state)
     Config.EspPlayers = state
     print("ESP Игроков:", state)
 end)
 
-VisualsTab:CreateToggle("Отображать боксы", "blue", false, "box.png", function(state)
+VisualsTab:CreateToggle("Боксы", "blue", false, "box", function(state)
     Config.EspBoxes = state
-    print("Боксы игроков:", state)
+    print("Боксы:", state)
 end)
 
--- ================= [ ВКЛАДКА ТЕЛЕПОРТОВ ] =================
-TeleportTab:CreateButton("Телепорт в Безопасную зону", "shield.png", function()
-    local lplayer = game.Players.LocalPlayer
-    if lplayer and lplayer.Character and lplayer.Character:FindFirstChild("HumanoidRootPart") then
-        lplayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)
-        print("Успешный телепорт в безопасную зону.")
+-- ================= [ ТЕЛЕПОРТЫ ] =================
+TeleportTab:CreateButton("В безопасную зону", "shield", function()
+    local lp = game.Players.LocalPlayer
+    if lp and lp.Character and lp.Character:FindFirstChild("HumanoidRootPart") then
+        lp.Character.HumanoidRootPart.CFrame = CFrame.new(0, 50, 0)
+        print("Телепорт выполнен!")
     end
 end)
 
-TeleportTab:CreateButton("Телепорт к Боссу", "teleport.png", function()
-    print("Поиск босса на карте...")
+TeleportTab:CreateButton("К боссу", "teleport", function()
+    print("Поиск босса...")
 end)
 
--- ================= [ ВКЛАДКА НАСТРОЕК ] =================
-ConfigTab:CreateButton("Сохранить текущие настройки", "save.png", function()
+-- ================= [ КОНФИГУРАЦИЯ ] =================
+ConfigTab:CreateButton("Сохранить", "save", function()
     if writefile then
-        local json = game:GetService("HttpService"):JSONEncode(Config)
-        writefile("Luminor_Config.json", json)
-        print("Конфиг успешно сохранен в файл 'Luminor_Config.json'!")
+        writefile("Luminor_Config.json", game:GetService("HttpService"):JSONEncode(Config))
+        print("Конфиг сохранён!")
     else
-        print("Ошибка: Ваш эксплоит не поддерживает writefile!")
+        print("Ошибка: writefile недоступен")
     end
 end)
 
-ConfigTab:CreateButton("Загрузить настройки", "download.png", function()
+ConfigTab:CreateButton("Загрузить", "download", function()
     if isfile and isfile("Luminor_Config.json") then
-        local json = readfile("Luminor_Config.json")
-        Config = game:GetService("HttpService"):JSONDecode(json)
-        print("Конфигурация успешно загружена!")
+        Config = game:GetService("HttpService"):JSONDecode(readfile("Luminor_Config.json"))
+        print("Конфиг загружен!")
     else
-        print("Ошибка: Файл настроек 'Luminor_Config.json' не найден!")
+        print("Файл конфига не найден")
     end
 end)
 
-ConfigTab:CreateButton("Уничтожить интерфейс (Unload)", "power.png", function()
-    local gui = game:GetService("CoreGui"):FindFirstChild("LuminorPrivateUI") or game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("LuminorPrivateUI")
-    if gui then
-        gui:Destroy()
-        print("Интерфейс успешно выгружен из памяти игры.")
-    end
+ConfigTab:CreateButton("Выход", "power", function()
+    local gui = game:GetService("CoreGui"):FindFirstChild("LuminorPrivateUI")
+    if gui then gui:Destroy() print("Интерфейс выгружен") end
 end)</code></pre>
                     </div>
                 </div>
