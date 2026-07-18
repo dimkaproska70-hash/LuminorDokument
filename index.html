@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LuminorLib v1.2.1 — Пошаговая документация</title>
+    
+    <!-- Скрипты и шрифты -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Highlight.js для подсветки синтаксиса кода -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/lua.min.js"></script>
+
     <style>
         :root {
             --bg-color: #050508;
@@ -46,10 +54,22 @@
             display: inline-block;
             animation: floatLetter 3s ease-in-out infinite;
         }
+        
+        /* Скроллбары страницы */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #050508; }
         ::-webkit-scrollbar-thumb { background: #2d2042; border-radius: 10px; }
-        pre { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Стили для ячеек кода */
+        pre { font-family: 'JetBrains Mono', monospace; margin: 0; padding: 0; background: transparent !important; }
+        code.hljs { background: transparent !important; padding: 1.25rem; font-size: 0.875rem; line-height: 1.5; }
+        
+        /* Скроллбары внутри блоков кода */
+        .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(168, 85, 247, 0.4); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(168, 85, 247, 0.8); }
+
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -106,7 +126,7 @@
                             <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                         </button>
                     </div>
-                    <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()</code></pre>
+                    <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()</code></pre>
                 </div>
                 <div class="mt-6 flex justify-end">
                     <a href="#step-1" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
@@ -128,7 +148,7 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>local Window = LuminorLib:CreateWindow(
+                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">local Window = LuminorLib:CreateWindow(
     "Luminor Premium",   -- Заголовок
     "Luminor_UI",        -- Имя ScreenGui
     "by DADILK",         -- Ватермарка
@@ -161,7 +181,7 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Обычная вкладка
+                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">-- Обычная вкладка
 local MainTab = Window:CreateTab("Главная", "home")
 -- Компактная вкладка с иконкой
 local SettingsTab = Window:CreateTab("", "settings")</code></pre>
@@ -186,7 +206,7 @@ local SettingsTab = Window:CreateTab("", "settings")</code></pre>
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
+                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
     print("Авто-Фарм: " .. tostring(state))
 end)
 
@@ -214,7 +234,7 @@ end)</code></pre>
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>MainTab:CreateButton("Телепорт к боссу", "teleport", function()
+                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">MainTab:CreateButton("Телепорт к боссу", "teleport", function()
     print("Телепортация...")
 end)
 
@@ -242,7 +262,7 @@ end)</code></pre>
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>MainTab:CreateSlider("Громкость", 0, 100, 50, function(value)
+                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">MainTab:CreateSlider("Громкость", 0, 100, 50, function(value)
     print("Громкость: " .. value)
 end)
 
@@ -270,7 +290,7 @@ end)</code></pre>
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>MainTab:CreateMarkdown(
+                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">MainTab:CreateMarkdown(
     "&lt;b&gt;Привет&lt;/b&gt; &lt;font color='#c084fc'&gt;LuminorLib&lt;/font&gt;!&lt;br&gt;" ..
     "&lt;i&gt;Версия 1.2.1&lt;/i&gt; — &lt;u&gt;обновление&lt;/u&gt;."
 )
@@ -294,10 +314,10 @@ MainTab:CreateMarkdown("Обычный текст без тегов.")</code></p
                     <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
                     <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">ПОЛНЫЙ СКРИПТ LUA</span>
                     <button onclick="copyCode(this)" class="flex items-center gap-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 transition-colors px-4 py-1.5 rounded-lg shadow-lg">
-                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Скопировать всё
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Скопировать всё</span>
                     </button>
                 </div>
-                <pre class="p-5 text-sm text-blue-200 overflow-x-auto" style="max-height: 600px; overflow-y: auto;"><code>local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
+                <pre class="overflow-x-auto custom-scrollbar" style="max-height: 400px;"><code class="language-lua">local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
 
 local Window = LuminorLib:CreateWindow("Luminor Premium", "UI", "by DADILK", "classic", "Pan1", {
     keySystem = true,
@@ -343,19 +363,31 @@ end)</code></pre>
     </footer>
 
     <script>
-        lucide.createIcons();
+        // Инициализация иконок и подсветки синтаксиса при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            hljs.highlightAll();
+        });
 
+        // Улучшенная функция копирования
         function copyCode(btn) {
             const container = btn.closest('.rounded-xl');
-            const code = container.querySelector('code').innerText.trim();
+            // Используем textContent вместо innerText для сохранения отступов
+            const code = container.querySelector('code').textContent.trim();
+            
+            // Запоминаем изначальное состояние кнопки
+            const originalHTML = btn.innerHTML;
+            const originalClass = btn.className;
+
             navigator.clipboard.writeText(code).then(() => {
-                const originalHTML = btn.innerHTML;
                 btn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i> <span>Скопировано!</span>';
                 btn.className = 'flex items-center gap-1.5 text-xs font-bold text-white bg-emerald-500 px-3 py-1 rounded-lg shadow-lg';
                 lucide.createIcons();
+                
                 setTimeout(() => {
+                    // Возвращаем строго изначальные классы и структуру (чтобы синяя кнопка оставалась синей)
                     btn.innerHTML = originalHTML;
-                    btn.className = 'flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10';
+                    btn.className = originalClass;
                     lucide.createIcons();
                 }, 2000);
             });
