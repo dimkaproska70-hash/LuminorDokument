@@ -5,20 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LuminorLib v1.2.1 — Пошаговая документация</title>
     
-    <!-- Скрипты и шрифты -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- Highlight.js для подсветки синтаксиса кода -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/lua.min.js"></script>
 
     <style>
-        :root {
-            --bg-color: #050508;
-        }
+        :root { --bg-color: #050508; }
         body {
             background-color: var(--bg-color);
             font-family: 'Inter', sans-serif;
@@ -55,16 +51,13 @@
             animation: floatLetter 3s ease-in-out infinite;
         }
         
-        /* Скроллбары страницы */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #050508; }
         ::-webkit-scrollbar-thumb { background: #2d2042; border-radius: 10px; }
         
-        /* Стили для ячеек кода */
         pre { font-family: 'JetBrains Mono', monospace; margin: 0; padding: 0; background: transparent !important; }
         code.hljs { background: transparent !important; padding: 1.25rem; font-size: 0.875rem; line-height: 1.5; }
         
-        /* Скроллбары внутри блоков кода */
         .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(168, 85, 247, 0.4); border-radius: 4px; }
@@ -81,7 +74,6 @@
 
     <div class="bg-mesh"></div>
 
-    <!-- Header -->
     <header class="glass-panel sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
             <div class="flex items-center gap-4">
@@ -106,7 +98,7 @@
 
     <main class="max-w-5xl mx-auto px-6 py-12 space-y-20">
 
-        <!-- Шаг 0: Загрузка библиотеки + Начало -->
+        <!-- Шаг 0 -->
         <section id="step-0" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <div class="space-y-5">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold">
@@ -126,7 +118,8 @@
                             <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                         </button>
                     </div>
-                    <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()</code></pre>
+                    <!-- Ячейка заполняется через JS -->
+                    <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-0" class="language-lua"></code></pre>
                 </div>
                 <div class="mt-6 flex justify-end">
                     <a href="#step-1" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
@@ -136,7 +129,7 @@
             </div>
         </section>
 
-        <!-- Шаг 1: Создание окна -->
+        <!-- Шаг 1 -->
         <section id="step-1" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">1.</span> Создание окна, фоны и Platoboost</h2>
             <p class="text-gray-400 mt-3">Метод <code>CreateWindow</code> принимает таблицу опций. Можно задать фон по имени без расширения и скрытые ID/API для Platoboost.</p>
@@ -148,18 +141,8 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">local Window = LuminorLib:CreateWindow(
-    "Luminor Premium",   -- Заголовок
-    "Luminor_UI",        -- Имя ScreenGui
-    "by DADILK",         -- Ватермарка
-    "Classic",           -- Цветовая тема
-    "Pan1",              -- Фон (автопоиск Pan1.mp4 / Pan1.png)
-    {
-        keySystem = true,               -- Включить ключ-систему
-        platoboostId = "123456",        -- Ваш ID проекта
-        platoboostApiKey = "key_abcde"  -- Ваш API ключ
-    }
-)</code></pre>
+                <!-- Ячейка заполняется через JS -->
+                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-1" class="language-lua"></code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-0" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
@@ -169,7 +152,7 @@
             </div>
         </section>
 
-        <!-- Шаг 2: Вкладки -->
+        <!-- Шаг 2 -->
         <section id="step-2" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">2.</span> Вкладки (Tabs)</h2>
             <p class="text-gray-400 mt-3">Иконки теперь указываются без расширения. Пустой текст — только иконка по центру.</p>
@@ -181,10 +164,8 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">-- Обычная вкладка
-local MainTab = Window:CreateTab("Главная", "home")
--- Компактная вкладка с иконкой
-local SettingsTab = Window:CreateTab("", "settings")</code></pre>
+                <!-- Ячейка заполняется через JS -->
+                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-2" class="language-lua"></code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-1" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
@@ -194,7 +175,7 @@ local SettingsTab = Window:CreateTab("", "settings")</code></pre>
             </div>
         </section>
 
-        <!-- Шаг 3: Переключатели -->
+        <!-- Шаг 3 -->
         <section id="step-3" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">3.</span> Переключатели (Toggles)</h2>
             <p class="text-gray-400 mt-3">Иконка автоматически загорается неоновым цветом при активации.</p>
@@ -206,13 +187,8 @@ local SettingsTab = Window:CreateTab("", "settings")</code></pre>
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
-    print("Авто-Фарм: " .. tostring(state))
-end)
-
-MainTab:CreateToggle("", "purple", false, "eye", function(state)
-    print("ESP: " .. tostring(state))
-end)</code></pre>
+                <!-- Ячейка заполняется через JS -->
+                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-3" class="language-lua"></code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-2" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
@@ -222,7 +198,7 @@ end)</code></pre>
             </div>
         </section>
 
-        <!-- Шаг 4: Кнопки -->
+        <!-- Шаг 4 -->
         <section id="step-4" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">4.</span> Интерактивные Кнопки</h2>
             <p class="text-gray-400 mt-3">Кнопки с эффектом волны. Иконка задаётся именем без расширения.</p>
@@ -234,13 +210,8 @@ end)</code></pre>
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">MainTab:CreateButton("Телепорт к боссу", "teleport", function()
-    print("Телепортация...")
-end)
-
-MainTab:CreateButton("", "trash", function()
-    print("Конфиг очищен!")
-end)</code></pre>
+                <!-- Ячейка заполняется через JS -->
+                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-4" class="language-lua"></code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-3" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
@@ -250,7 +221,7 @@ end)</code></pre>
             </div>
         </section>
 
-        <!-- Шаг 5: Слайдеры -->
+        <!-- Шаг 5 -->
         <section id="step-5" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">5.</span> Слайдеры (Sliders)</h2>
             <p class="text-gray-400 mt-3">Новый элемент с плавным ползунком и отображением значения.</p>
@@ -262,13 +233,8 @@ end)</code></pre>
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">MainTab:CreateSlider("Громкость", 0, 100, 50, function(value)
-    print("Громкость: " .. value)
-end)
-
-MainTab:CreateSlider("", 1, 10, 5, function(value)
-    print("Уровень: " .. value)
-end)</code></pre>
+                <!-- Ячейка заполняется через JS -->
+                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-5" class="language-lua"></code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-4" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
@@ -278,7 +244,7 @@ end)</code></pre>
             </div>
         </section>
 
-        <!-- Шаг 6: Маркдаун -->
+        <!-- Шаг 6 -->
         <section id="step-6" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">6.</span> Маркдаун / RichText</h2>
             <p class="text-gray-400 mt-3">Вывод форматированного текста с поддержкой RichText-тегов.</p>
@@ -290,12 +256,8 @@ end)</code></pre>
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <pre class="overflow-x-auto custom-scrollbar"><code class="language-lua">MainTab:CreateMarkdown(
-    "&lt;b&gt;Привет&lt;/b&gt; &lt;font color='#c084fc'&gt;LuminorLib&lt;/font&gt;!&lt;br&gt;" ..
-    "&lt;i&gt;Версия 1.2.1&lt;/i&gt; — &lt;u&gt;обновление&lt;/u&gt;."
-)
-
-MainTab:CreateMarkdown("Обычный текст без тегов.")</code></pre>
+                <!-- Ячейка заполняется через JS -->
+                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-6" class="language-lua"></code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-5" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
@@ -305,7 +267,7 @@ MainTab:CreateMarkdown("Обычный текст без тегов.")</code></p
             </div>
         </section>
 
-        <!-- Шаг 7: Полный шаблон -->
+        <!-- Шаг 7 -->
         <section id="step-7" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-blue-400">7.</span> Готовый шаблон скрипта</h2>
             <p class="text-gray-400 mt-3">Пример скрипта со всеми элементами, сохранением конфига и ключ-системой.</p>
@@ -317,7 +279,93 @@ MainTab:CreateMarkdown("Обычный текст без тегов.")</code></p
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Скопировать всё</span>
                     </button>
                 </div>
-                <pre class="overflow-x-auto custom-scrollbar" style="max-height: 400px;"><code class="language-lua">local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
+                <!-- Ячейка заполняется через JS -->
+                <pre class="overflow-x-auto custom-scrollbar" style="max-height: 400px;"><code id="code-step-7" class="language-lua"></code></pre>
+            </div>
+            <div class="mt-6 flex justify-start">
+                <a href="#step-6" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-10 py-10 border-t border-white/5 text-center text-gray-600 text-sm font-medium">
+        <p>© 2026 <span class="text-purple-400/50">LuminorGui</span>. Создано с любовью для разработчиков.</p>
+    </footer>
+
+    <!-- Скрипты с функциями генерации кода -->
+    <script>
+        // ==========================================
+        // ФУНКЦИИ ДЛЯ ВОЗВРАТА КОДА
+        // ==========================================
+        
+        function getStep0Code() {
+            return `local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()`;
+        }
+
+        function getStep1Code() {
+            return `local Window = LuminorLib:CreateWindow(
+    "Luminor Premium",   -- Заголовок
+    "Luminor_UI",        -- Имя ScreenGui
+    "by DADILK",         -- Ватермарка
+    "Classic",           -- Цветовая тема
+    "Pan1",              -- Фон (автопоиск Pan1.mp4 / Pan1.png)
+    {
+        keySystem = true,               -- Включить ключ-систему
+        platoboostId = "123456",        -- Ваш ID проекта
+        platoboostApiKey = "key_abcde"  -- Ваш API ключ
+    }
+)`;
+        }
+
+        function getStep2Code() {
+            return `-- Обычная вкладка
+local MainTab = Window:CreateTab("Главная", "home")
+-- Компактная вкладка с иконкой
+local SettingsTab = Window:CreateTab("", "settings")`;
+        }
+
+        function getStep3Code() {
+            return `MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
+    print("Авто-Фарм: " .. tostring(state))
+end)
+
+MainTab:CreateToggle("", "purple", false, "eye", function(state)
+    print("ESP: " .. tostring(state))
+end)`;
+        }
+
+        function getStep4Code() {
+            return `MainTab:CreateButton("Телепорт к боссу", "teleport", function()
+    print("Телепортация...")
+end)
+
+MainTab:CreateButton("", "trash", function()
+    print("Конфиг очищен!")
+end)`;
+        }
+
+        function getStep5Code() {
+            return `MainTab:CreateSlider("Громкость", 0, 100, 50, function(value)
+    print("Громкость: " .. value)
+end)
+
+MainTab:CreateSlider("", 1, 10, 5, function(value)
+    print("Уровень: " .. value)
+end)`;
+        }
+
+        function getStep6Code() {
+            return `MainTab:CreateMarkdown(
+    "<b>Привет</b> <font color='#c084fc'>LuminorLib</font>!<br>" ..
+    "<i>Версия 1.2.1</i> — <u>обновление</u>."
+)
+
+MainTab:CreateMarkdown("Обычный текст без тегов.")`;
+        }
+
+        function getStep7Code() {
+            return `local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
 
 local Window = LuminorLib:CreateWindow("Luminor Premium", "UI", "by DADILK", "classic", "Pan1", {
     keySystem = true,
@@ -337,7 +385,7 @@ MainTab:CreateButton("Телепорт", "teleport", function()
     print("Телепорт...")
 end)
 
-MainTab:CreateMarkdown("&lt;b&gt;Готово!&lt;/b&gt; &lt;font color='#c084fc'&gt;Добро пожаловать&lt;/font&gt;")
+MainTab:CreateMarkdown("<b>Готово!</b> <font color='#c084fc'>Добро пожаловать</font>")
 
 CombatTab:CreateToggle("Аимбот", "purple", false, "aim", function(state)
     print("Аимбот:", state)
@@ -349,33 +397,38 @@ end)
 
 SettingsTab:CreateButton("Сохранить", "save", function()
     writefile("config.json", game:GetService("HttpService"):JSONEncode({volume = 75}))
-end)</code></pre>
-            </div>
-            <div class="mt-6 flex justify-start">
-                <a href="#step-6" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
-            </div>
-        </section>
+end)`;
+        }
 
-    </main>
+        // ==========================================
+        // ИНИЦИАЛИЗАЦИЯ И ВНЕДРЕНИЕ КОДА
+        // ==========================================
 
-    <footer class="mt-10 py-10 border-t border-white/5 text-center text-gray-600 text-sm font-medium">
-        <p>© 2026 <span class="text-purple-400/50">LuminorGui</span>. Создано с любовью для разработчиков.</p>
-    </footer>
+        function injectCodes() {
+            document.getElementById('code-step-0').textContent = getStep0Code();
+            document.getElementById('code-step-1').textContent = getStep1Code();
+            document.getElementById('code-step-2').textContent = getStep2Code();
+            document.getElementById('code-step-3').textContent = getStep3Code();
+            document.getElementById('code-step-4').textContent = getStep4Code();
+            document.getElementById('code-step-5').textContent = getStep5Code();
+            document.getElementById('code-step-6').textContent = getStep6Code();
+            document.getElementById('code-step-7').textContent = getStep7Code();
+        }
 
-    <script>
-        // Инициализация иконок и подсветки синтаксиса при загрузке
         document.addEventListener('DOMContentLoaded', () => {
+            // Сначала внедряем код в блоки
+            injectCodes();
+            
+            // Затем инициализируем иконки и подсветку синтаксиса
             lucide.createIcons();
             hljs.highlightAll();
         });
 
-        // Улучшенная функция копирования
+        // Функция копирования
         function copyCode(btn) {
             const container = btn.closest('.rounded-xl');
-            // Используем textContent вместо innerText для сохранения отступов
             const code = container.querySelector('code').textContent.trim();
             
-            // Запоминаем изначальное состояние кнопки
             const originalHTML = btn.innerHTML;
             const originalClass = btn.className;
 
@@ -385,7 +438,6 @@ end)</code></pre>
                 lucide.createIcons();
                 
                 setTimeout(() => {
-                    // Возвращаем строго изначальные классы и структуру (чтобы синяя кнопка оставалась синей)
                     btn.innerHTML = originalHTML;
                     btn.className = originalClass;
                     lucide.createIcons();
