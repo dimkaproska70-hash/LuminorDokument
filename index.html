@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuminorLib v1.2.1 — Премиум Документация</title>
+    <title>LuminorLib v1.2.1 — Пошаговая документация</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #050508;
-            --accent-glow: rgba(168, 85, 247, 0.15);
         }
-        
         body {
             background-color: var(--bg-color);
             font-family: 'Inter', sans-serif;
@@ -20,7 +18,6 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
-
         .bg-mesh {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -30,26 +27,17 @@
             z-index: -1;
             animation: pulse-bg 10s ease-in-out infinite alternate;
         }
-
         @keyframes pulse-bg {
             0% { transform: scale(1); opacity: 0.8; }
             100% { transform: scale(1.1); opacity: 1; }
         }
-
         .glass-panel {
             background: rgba(15, 15, 20, 0.6);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.04);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .glass-panel:hover {
-            border-color: rgba(168, 85, 247, 0.3);
-            box-shadow: 0 8px 40px rgba(168, 85, 247, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
         @keyframes floatLetter {
             0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(168,85,247,0.3); }
             50% { transform: translateY(-8px); text-shadow: 0 12px 24px rgba(168,85,247,0.8); }
@@ -58,14 +46,10 @@
             display: inline-block;
             animation: floatLetter 3s ease-in-out infinite;
         }
-
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #050508; }
         ::-webkit-scrollbar-thumb { background: #2d2042; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #51367a; }
-
         pre { font-family: 'JetBrains Mono', monospace; }
-        
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -77,10 +61,10 @@
 
     <div class="bg-mesh"></div>
 
-    <header class="glass-panel sticky top-0 z-50 border-b-0 border-white/5">
+    <!-- Header -->
+    <header class="glass-panel sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
-            
-            <div class="flex items-center gap-4 cursor-default">
+            <div class="flex items-center gap-4">
                 <span class="text-2xl font-black tracking-widest flex">
                     <span class="floating-letter text-fuchsia-400" style="animation-delay: 0s;">L</span>
                     <span class="floating-letter text-fuchsia-400" style="animation-delay: 0.1s;">U</span>
@@ -90,139 +74,268 @@
                     <span class="floating-letter text-indigo-400" style="animation-delay: 0.5s;">O</span>
                     <span class="floating-letter text-blue-400" style="animation-delay: 0.6s;">R</span>
                 </span>
-                <div class="px-2.5 py-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-[10px] font-bold text-purple-300 tracking-wider shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+                <div class="px-2.5 py-1 rounded-md bg-purple-500/10 border border-purple-500/20 text-[10px] font-bold text-purple-300 tracking-wider">
                     VERSION 1.2.1
                 </div>
             </div>
-            
             <a href="https://github.com/dimkaproska70-hash/LuminorGui" target="_blank" class="flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-colors">
-                <i data-lucide="github" class="w-4 h-4"></i>
-                <span class="hidden sm:inline">Репозиторий</span>
+                <i data-lucide="github" class="w-4 h-4"></i> <span class="hidden sm:inline">Репозиторий</span>
             </a>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-10">
-        
-        <aside class="lg:col-span-3 hidden lg:block">
-            <div class="sticky top-28 flex flex-col gap-1.5 p-4 glass-panel rounded-2xl">
-                <p class="text-xs font-bold text-gray-500 tracking-widest uppercase mb-2 ml-2">Документация</p>
-                <a href="#intro" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
-                    <i data-lucide="sparkles" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> Введение
-                </a>
-                <a href="#step-1" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
-                    <i data-lucide="monitor" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 1. Создание Окна
-                </a>
-                <a href="#step-2" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
-                    <i data-lucide="folder" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 2. Вкладки (Tabs)
-                </a>
-                <a href="#step-3" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
-                    <i data-lucide="toggle-right" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 3. Переключатели
-                </a>
-                <a href="#step-4" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
-                    <i data-lucide="mouse-pointer-click" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 4. Кнопки
-                </a>
-                <a href="#step-5" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
-                    <i data-lucide="sliders" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 5. Слайдеры
-                </a>
-                <a href="#step-6" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
-                    <i data-lucide="type" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 6. Маркдаун
-                </a>
-                <a href="#step-7" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:bg-white/5 hover:text-purple-300 transition-all text-sm font-medium group">
-                    <i data-lucide="code-2" class="w-4 h-4 group-hover:scale-110 transition-transform"></i> 7. Полный Шаблон
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-20">
+
+        <!-- Шаг 0: Загрузка библиотеки + Начало -->
+        <section id="step-0" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
+            <div class="space-y-5">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold">
+                    <i data-lucide="download" class="w-3.5 h-3.5"></i> Старт
+                </div>
+                <h1 class="text-3xl font-bold text-white">Загрузка библиотеки</h1>
+                <p class="text-gray-400">Скопируйте этот код в начало вашего скрипта, чтобы подключить LuminorLib.</p>
+                <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-4">
+                    <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                            <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                        </div>
+                        <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                        <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                        </button>
+                    </div>
+                    <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()</code></pre>
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <a href="#step-1" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
+                        Далее: Создание Окна <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Шаг 1: Создание окна -->
+        <section id="step-1" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
+            <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">1.</span> Создание окна, фоны и Platoboost</h2>
+            <p class="text-gray-400 mt-3">Метод <code>CreateWindow</code> принимает таблицу опций. Можно задать фон по имени без расширения и скрытые ID/API для Platoboost.</p>
+            <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-4">
+                <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                    <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                    <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                    </button>
+                </div>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>local Window = LuminorLib:CreateWindow(
+    "Luminor Premium",   -- Заголовок
+    "Luminor_UI",        -- Имя ScreenGui
+    "by DADILK",         -- Ватермарка
+    "Classic",           -- Цветовая тема
+    "Pan1",              -- Фон (автопоиск Pan1.mp4 / Pan1.png)
+    {
+        keySystem = true,               -- Включить ключ-систему
+        platoboostId = "123456",        -- Ваш ID проекта
+        platoboostApiKey = "key_abcde"  -- Ваш API ключ
+    }
+)</code></pre>
+            </div>
+            <div class="mt-6 flex justify-between">
+                <a href="#step-0" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
+                <a href="#step-2" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
+                    Далее: Вкладки <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
-        </aside>
+        </section>
 
-        <div class="lg:col-span-9 space-y-10">
-
-            <section id="intro" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.1s;">
-                <div class="space-y-5">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold mb-2">
-                        <i data-lucide="zap" class="w-3.5 h-3.5"></i> Обновление 1.2.1
-                    </div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                        Добро пожаловать в LuminorLib
-                    </h1>
-                    <p class="text-gray-400 leading-relaxed text-base md:text-lg max-w-3xl">
-                        Библиотека обновлена до версии 1.2.1: <strong class="text-purple-300 font-semibold">умная загрузка ассетов</strong> (иконки и фоны без расширения), <strong class="text-purple-300 font-semibold">интеграция Platoboost с ID и API‑ключом</strong> (скрыто от пользователя), <strong class="text-purple-300 font-semibold">слайдер</strong> с анимированным ползунком и <strong class="text-purple-300 font-semibold">маркдаун (RichText)</strong> для форматированного текста.
-                    </p>
-                    
-                    <div class="flex items-start gap-4 p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20 mt-6">
-                        <div class="p-2 rounded-full bg-amber-500/10 shrink-0">
-                            <i data-lucide="triangle-alert" class="w-5 h-5 text-amber-400"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-bold text-amber-200 mb-1">Системные требования эксплоита</h4>
-                            <p class="text-xs md:text-sm text-amber-400/80 leading-relaxed">
-                                Для корректной отрисовки фонов и иконок ваш executor обязан поддерживать файловые функции <code>writefile</code>, <code>makefolder</code>, <code>isfile</code>, а также <code>getcustomasset</code>.
-                            </p>
-                        </div>
-                    </div>
+        <!-- Шаг 2: Вкладки -->
+        <section id="step-2" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
+            <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">2.</span> Вкладки (Tabs)</h2>
+            <p class="text-gray-400 mt-3">Иконки теперь указываются без расширения. Пустой текст — только иконка по центру.</p>
+            <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-4">
+                <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                    <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                    <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                    </button>
                 </div>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Обычная вкладка
+local MainTab = Window:CreateTab("Главная", "home")
+-- Компактная вкладка с иконкой
+local SettingsTab = Window:CreateTab("", "settings")</code></pre>
+            </div>
+            <div class="mt-6 flex justify-between">
+                <a href="#step-1" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
+                <a href="#step-3" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
+                    Далее: Переключатели <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </section>
 
-                <div class="mt-10 pt-6 border-t border-white/5 flex justify-end">
-                    <a href="#step-1" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.3)]">
-                        Начать: Создание Окна 
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+        <!-- Шаг 3: Переключатели -->
+        <section id="step-3" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
+            <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">3.</span> Переключатели (Toggles)</h2>
+            <p class="text-gray-400 mt-3">Иконка автоматически загорается неоновым цветом при активации.</p>
+            <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-4">
+                <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                    <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                    <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                    </button>
                 </div>
-            </section>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
+    print("Авто-Фарм: " .. tostring(state))
+end)
 
-            <!-- Шаги 1-5 (окно, вкладки, тоглы, кнопки, слайдеры) без изменений -->
-            <!-- ... -->
+MainTab:CreateToggle("", "purple", false, "eye", function(state)
+    print("ESP: " .. tostring(state))
+end)</code></pre>
+            </div>
+            <div class="mt-6 flex justify-between">
+                <a href="#step-2" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
+                <a href="#step-4" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
+                    Далее: Кнопки <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </section>
 
-            <section id="step-6" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade" style="animation-delay: 0.55s;">
-                <div class="space-y-6">
-                    <h2 class="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
-                        <span class="text-purple-500">6.</span> Маркдаун / RichText
-                    </h2>
-                    <p class="text-gray-400 text-sm md:text-base leading-relaxed">
-                        Для вывода форматированного текста используйте <code>CreateMarkdown(text)</code>. Поддерживаются стандартные теги Roblox RichText: <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;u&gt;</code>, <code>&lt;font color="..."&gt;</code>, <code>&lt;br&gt;</code> и другие.
-                    </p>
+        <!-- Шаг 4: Кнопки -->
+        <section id="step-4" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
+            <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">4.</span> Интерактивные Кнопки</h2>
+            <p class="text-gray-400 mt-3">Кнопки с эффектом волны. Иконка задаётся именем без расширения.</p>
+            <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-4">
+                <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                    <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                    <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                    </button>
+                </div>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>MainTab:CreateButton("Телепорт к боссу", "teleport", function()
+    print("Телепортация...")
+end)
 
-                    <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-6">
-                        <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
-                            <div class="flex gap-2">
-                                <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
-                                <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
-                                <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
-                            </div>
-                            <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
-                            <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
-                                <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
-                            </button>
-                        </div>
-                        <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Синтаксис: CreateMarkdown(richText)
-MainTab:CreateMarkdown(
-    "&lt;b&gt;Добро пожаловать&lt;/b&gt; в &lt;font color='#c084fc'&gt;LuminorLib&lt;/font&gt;!&lt;br&gt;" ..
-    "&lt;i&gt;Версия 1.2.1&lt;/i&gt; — &lt;u&gt;обновлённый интерфейс&lt;/u&gt;."
+MainTab:CreateButton("", "trash", function()
+    print("Конфиг очищен!")
+end)</code></pre>
+            </div>
+            <div class="mt-6 flex justify-between">
+                <a href="#step-3" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
+                <a href="#step-5" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
+                    Далее: Слайдеры <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Шаг 5: Слайдеры -->
+        <section id="step-5" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
+            <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">5.</span> Слайдеры (Sliders)</h2>
+            <p class="text-gray-400 mt-3">Новый элемент с плавным ползунком и отображением значения.</p>
+            <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-4">
+                <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                    <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                    <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                    </button>
+                </div>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>MainTab:CreateSlider("Громкость", 0, 100, 50, function(value)
+    print("Громкость: " .. value)
+end)
+
+MainTab:CreateSlider("", 1, 10, 5, function(value)
+    print("Уровень: " .. value)
+end)</code></pre>
+            </div>
+            <div class="mt-6 flex justify-between">
+                <a href="#step-4" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
+                <a href="#step-6" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
+                    Далее: Маркдаун <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Шаг 6: Маркдаун -->
+        <section id="step-6" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
+            <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">6.</span> Маркдаун / RichText</h2>
+            <p class="text-gray-400 mt-3">Вывод форматированного текста с поддержкой RichText-тегов.</p>
+            <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-4">
+                <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
+                    <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
+                    <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">LUA</span>
+                    <button onclick="copyCode(this)" class="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
+                    </button>
+                </div>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>MainTab:CreateMarkdown(
+    "&lt;b&gt;Привет&lt;/b&gt; &lt;font color='#c084fc'&gt;LuminorLib&lt;/font&gt;!&lt;br&gt;" ..
+    "&lt;i&gt;Версия 1.2.1&lt;/i&gt; — &lt;u&gt;обновление&lt;/u&gt;."
 )
 
--- Можно передавать обычный текст без тегов
-MainTab:CreateMarkdown("Простой текст тоже работает.")</code></pre>
-                    </div>
-                    <p class="text-gray-500 text-xs mt-2">
-                        Маркдаун-блок автоматически растягивается по ширине контейнера и поддерживает перенос строк.
-                    </p>
+MainTab:CreateMarkdown("Обычный текст без тегов.")</code></pre>
+            </div>
+            <div class="mt-6 flex justify-between">
+                <a href="#step-5" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
+                <a href="#step-7" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
+                    Далее: Полный Шаблон <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Шаг 7: Полный шаблон -->
+        <section id="step-7" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
+            <h2 class="text-2xl font-bold text-white"><span class="text-blue-400">7.</span> Готовый шаблон скрипта</h2>
+            <p class="text-gray-400 mt-3">Пример скрипта со всеми элементами, сохранением конфига и ключ-системой.</p>
+            <div class="rounded-xl overflow-hidden border border-blue-500/30 bg-[#0a0a0f] shadow-[0_0_30px_rgba(59,130,246,0.1)] mt-4">
+                <div class="flex items-center justify-between px-4 py-2.5 bg-blue-500/5 border-b border-blue-500/20">
+                    <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
+                    <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">ПОЛНЫЙ СКРИПТ LUA</span>
+                    <button onclick="copyCode(this)" class="flex items-center gap-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 transition-colors px-4 py-1.5 rounded-lg shadow-lg">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Скопировать всё
+                    </button>
                 </div>
+                <pre class="p-5 text-sm text-blue-200 overflow-x-auto" style="max-height: 600px; overflow-y: auto;"><code>local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
 
-                <div class="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4">
-                    <a href="#step-5" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-gray-400 hover:text-white font-medium transition-all">
-                        <i data-lucide="arrow-left" class="w-4 h-4 group-hover:-translate-x-1 transition-transform"></i>
-                        Шаг 5: Слайдеры
-                    </a>
-                    <a href="#step-7" class="group flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-blue-600/10 border border-blue-500/30 hover:bg-blue-600/20 text-blue-300 font-medium transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]">
-                        Финальный Шаг: Шаблон 
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
-            </section>
+local Window = LuminorLib:CreateWindow("Luminor Premium", "UI", "by DADILK", "classic", "Pan1", {
+    keySystem = true,
+    platoboostId = "123456",
+    platoboostApiKey = "your_api_key"
+})
 
-            <!-- Полный шаблон теперь #step-7, внутри добавить пример маркдауна -->
-            <!-- ... -->
+local MainTab = Window:CreateTab("Главная", "home")
+local CombatTab = Window:CreateTab("Бой", "sword")
+local SettingsTab = Window:CreateTab("Настройки", "settings")
 
-        </div>
+MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
+    if state then print("Фарм запущен") end
+end)
+
+MainTab:CreateButton("Телепорт", "teleport", function()
+    print("Телепорт...")
+end)
+
+MainTab:CreateMarkdown("&lt;b&gt;Готово!&lt;/b&gt; &lt;font color='#c084fc'&gt;Добро пожаловать&lt;/font&gt;")
+
+CombatTab:CreateToggle("Аимбот", "purple", false, "aim", function(state)
+    print("Аимбот:", state)
+end)
+
+SettingsTab:CreateSlider("Громкость", 0, 100, 75, function(v)
+    print("Громкость:", v)
+end)
+
+SettingsTab:CreateButton("Сохранить", "save", function()
+    writefile("config.json", game:GetService("HttpService"):JSONEncode({volume = 75}))
+end)</code></pre>
+            </div>
+            <div class="mt-6 flex justify-start">
+                <a href="#step-6" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
+            </div>
+        </section>
+
     </main>
 
     <footer class="mt-10 py-10 border-t border-white/5 text-center text-gray-600 text-sm font-medium">
@@ -233,20 +346,16 @@ MainTab:CreateMarkdown("Простой текст тоже работает.")</
         lucide.createIcons();
 
         function copyCode(btn) {
-            const container = btn.closest('div.rounded-xl');
-            const codeBlock = container.querySelector('code');
-            
-            navigator.clipboard.writeText(codeBlock.innerText.trim()).then(() => {
-                const originalHtml = btn.innerHTML;
-                const originalClasses = btn.className;
-                
+            const container = btn.closest('.rounded-xl');
+            const code = container.querySelector('code').innerText.trim();
+            navigator.clipboard.writeText(code).then(() => {
+                const originalHTML = btn.innerHTML;
                 btn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i> <span>Скопировано!</span>';
-                btn.className = 'flex items-center gap-1.5 text-xs font-bold text-white bg-emerald-500 px-4 py-1.5 rounded-lg shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all';
+                btn.className = 'flex items-center gap-1.5 text-xs font-bold text-white bg-emerald-500 px-3 py-1 rounded-lg shadow-lg';
                 lucide.createIcons();
-
                 setTimeout(() => {
-                    btn.innerHTML = originalHtml;
-                    btn.className = originalClasses;
+                    btn.innerHTML = originalHTML;
+                    btn.className = 'flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10';
                     lucide.createIcons();
                 }, 2000);
             });
