@@ -4,69 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LuminorLib v1.2.1 — Пошаговая документация</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/lua.min.js"></script>
-
     <style>
         :root { --bg-color: #050508; }
-        body {
-            background-color: var(--bg-color);
-            font-family: 'Inter', sans-serif;
-            color: #e2e8f0;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-        .bg-mesh {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: 
-                radial-gradient(circle at 15% 50%, rgba(147, 51, 234, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 25%);
-            z-index: -1;
-            animation: pulse-bg 10s ease-in-out infinite alternate;
-        }
-        @keyframes pulse-bg {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.1); opacity: 1; }
-        }
-        .glass-panel {
-            background: rgba(15, 15, 20, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        @keyframes floatLetter {
-            0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(168,85,247,0.3); }
-            50% { transform: translateY(-8px); text-shadow: 0 12px 24px rgba(168,85,247,0.8); }
-        }
-        .floating-letter {
-            display: inline-block;
-            animation: floatLetter 3s ease-in-out infinite;
-        }
-        
+        body { background-color: var(--bg-color); font-family: 'Inter', sans-serif; color: #e2e8f0; overflow-x: hidden; scroll-behavior: smooth; }
+        .bg-mesh { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle at 15% 50%, rgba(147, 51, 234, 0.08), transparent 25%), radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 25%); z-index: -1; animation: pulse-bg 10s ease-in-out infinite alternate; }
+        @keyframes pulse-bg { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.1); opacity: 1; } }
+        .glass-panel { background: rgba(15, 15, 20, 0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.04); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05); }
+        @keyframes floatLetter { 0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(168,85,247,0.3); } 50% { transform: translateY(-8px); text-shadow: 0 12px 24px rgba(168,85,247,0.8); } }
+        .floating-letter { display: inline-block; animation: floatLetter 3s ease-in-out infinite; }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #050508; }
         ::-webkit-scrollbar-thumb { background: #2d2042; border-radius: 10px; }
-        
-        pre { font-family: 'JetBrains Mono', monospace; margin: 0; padding: 0; background: transparent !important; }
-        code.hljs { background: transparent !important; padding: 1.25rem; font-size: 0.875rem; line-height: 1.5; }
-        
-        .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(168, 85, 247, 0.4); border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(168, 85, 247, 0.8); }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        pre { font-family: 'JetBrains Mono', monospace; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade { animation: fadeUp 0.6s ease-out forwards; }
     </style>
 </head>
@@ -74,6 +27,7 @@
 
     <div class="bg-mesh"></div>
 
+    <!-- Header -->
     <header class="glass-panel sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
             <div class="flex items-center gap-4">
@@ -98,7 +52,7 @@
 
     <main class="max-w-5xl mx-auto px-6 py-12 space-y-20">
 
-        <!-- Шаг 0 -->
+        <!-- Шаг 0: Загрузка библиотеки -->
         <section id="step-0" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <div class="space-y-5">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold">
@@ -118,8 +72,7 @@
                             <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                         </button>
                     </div>
-                    <!-- Ячейка заполняется через JS -->
-                    <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-0" class="language-lua"></code></pre>
+                    <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()</code></pre>
                 </div>
                 <div class="mt-6 flex justify-end">
                     <a href="#step-1" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
@@ -129,7 +82,7 @@
             </div>
         </section>
 
-        <!-- Шаг 1 -->
+        <!-- Шаг 1: Создание окна -->
         <section id="step-1" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">1.</span> Создание окна, фоны и Platoboost</h2>
             <p class="text-gray-400 mt-3">Метод <code>CreateWindow</code> принимает таблицу опций. Можно задать фон по имени без расширения и скрытые ID/API для Platoboost.</p>
@@ -141,8 +94,18 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <!-- Ячейка заполняется через JS -->
-                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-1" class="language-lua"></code></pre>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>local Window = LuminorLib:CreateWindow(
+    "Luminor Premium",   -- Заголовок
+    "Luminor_UI",        -- Имя ScreenGui
+    "by DADILK",         -- Ватермарка
+    "Classic",           -- Цветовая тема
+    "Pan1",              -- Фон (автопоиск Pan1.mp4 / Pan1.png)
+    {
+        keySystem = true,               -- Включить ключ-систему
+        platoboostId = "123456",        -- Ваш ID проекта
+        platoboostApiKey = "key_abcde"  -- Ваш API ключ
+    }
+)</code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-0" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
@@ -152,7 +115,7 @@
             </div>
         </section>
 
-        <!-- Шаг 2 -->
+        <!-- Шаг 2: Вкладки -->
         <section id="step-2" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">2.</span> Вкладки (Tabs)</h2>
             <p class="text-gray-400 mt-3">Иконки теперь указываются без расширения. Пустой текст — только иконка по центру.</p>
@@ -164,8 +127,10 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <!-- Ячейка заполняется через JS -->
-                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-2" class="language-lua"></code></pre>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Обычная вкладка
+local MainTab = Window:CreateTab("Главная", "home")
+-- Компактная вкладка с иконкой
+local SettingsTab = Window:CreateTab("", "settings")</code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-1" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
@@ -175,7 +140,7 @@
             </div>
         </section>
 
-        <!-- Шаг 3 -->
+        <!-- Шаг 3: Переключатели -->
         <section id="step-3" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">3.</span> Переключатели (Toggles)</h2>
             <p class="text-gray-400 mt-3">Иконка автоматически загорается неоновым цветом при активации.</p>
@@ -187,8 +152,13 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <!-- Ячейка заполняется через JS -->
-                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-3" class="language-lua"></code></pre>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
+    print("Авто-Фарм: " .. tostring(state))
+end)
+
+MainTab:CreateToggle("", "purple", false, "eye", function(state)
+    print("ESP: " .. tostring(state))
+end)</code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-2" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
@@ -198,7 +168,7 @@
             </div>
         </section>
 
-        <!-- Шаг 4 -->
+        <!-- Шаг 4: Кнопки -->
         <section id="step-4" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">4.</span> Интерактивные Кнопки</h2>
             <p class="text-gray-400 mt-3">Кнопки с эффектом волны. Иконка задаётся именем без расширения.</p>
@@ -210,8 +180,13 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <!-- Ячейка заполняется через JS -->
-                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-4" class="language-lua"></code></pre>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>MainTab:CreateButton("Телепорт к боссу", "teleport", function()
+    print("Телепортация...")
+end)
+
+MainTab:CreateButton("", "trash", function()
+    print("Конфиг очищен!")
+end)</code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-3" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
@@ -221,10 +196,10 @@
             </div>
         </section>
 
-        <!-- Шаг 5 -->
+        <!-- Шаг 5: Слайдеры -->
         <section id="step-5" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">5.</span> Слайдеры (Sliders)</h2>
-            <p class="text-gray-400 mt-3">Новый элемент с плавным ползунком и отображением значения.</p>
+            <p class="text-gray-400 mt-3">Элемент с плавным ползунком и отображением значения. Вызывается так:</p>
             <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-4">
                 <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
                     <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
@@ -233,21 +208,27 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <!-- Ячейка заполняется через JS -->
-                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-5" class="language-lua"></code></pre>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Создать слайдер: Tab:CreateSlider(название, мин, макс, значение_по_умолчанию, callback)
+MainTab:CreateSlider("Громкость", 0, 100, 50, function(value)
+    print("Громкость: " .. value)
+end)
+
+MainTab:CreateSlider("", 1, 10, 5, function(value)
+    print("Уровень: " .. value)
+end)</code></pre>
             </div>
             <div class="mt-6 flex justify-between">
                 <a href="#step-4" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
                 <a href="#step-6" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
-                    Далее: Маркдаун <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    Далее: Текст / RichText <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
         </section>
 
-        <!-- Шаг 6 -->
+        <!-- Шаг 6: Текст / RichText -->
         <section id="step-6" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
-            <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">6.</span> Маркдаун / RichText</h2>
-            <p class="text-gray-400 mt-3">Вывод форматированного текста с поддержкой RichText-тегов.</p>
+            <h2 class="text-2xl font-bold text-white"><span class="text-purple-500">6.</span> Текст и RichText</h2>
+            <p class="text-gray-400 mt-3">Специального метода <code>CreateMarkdown</code> пока нет, но можно создать текстовую метку с поддержкой RichText вручную:</p>
             <div class="rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0f] shadow-2xl mt-4">
                 <div class="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/5">
                     <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
@@ -256,32 +237,91 @@
                         <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Копировать</span>
                     </button>
                 </div>
-                <!-- Ячейка заполняется через JS -->
-                <pre class="overflow-x-auto custom-scrollbar"><code id="code-step-6" class="language-lua"></code></pre>
+                <pre class="p-5 text-sm text-purple-200 overflow-x-auto"><code>-- Пример ручного добавления текста с RichText
+local Label = Instance.new("TextLabel")
+Label.Size = UDim2.new(1, -12, 0, 30)
+Label.BackgroundTransparency = 1
+Label.Text = "&lt;b&gt;Привет&lt;/b&gt; &lt;font color='#c084fc'&gt;LuminorLib&lt;/font&gt;!&lt;br&gt;&lt;i&gt;Версия 1.2.1&lt;/i&gt;"
+Label.RichText = true
+Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+Label.Font = Enum.Font.SourceSansBold
+Label.TextSize = 14
+Label.Parent = MainTab.Scroll  -- где MainTab.Scroll – контейнер вкладки</code></pre>
             </div>
+            <p class="text-gray-500 text-xs mt-2">В будущих обновлениях появится удобный метод <code>CreateMarkdown</code>.</p>
             <div class="mt-6 flex justify-between">
                 <a href="#step-5" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
-                <a href="#step-7" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-purple-600/10 border border-purple-500/30 hover:bg-purple-600/20 text-purple-300 font-medium transition-all">
-                    Далее: Полный Шаблон <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                <a href="#step-7" class="group flex items-center gap-3 px-6 py-3 rounded-full bg-blue-600/10 border border-blue-500/30 hover:bg-blue-600/20 text-blue-300 font-medium transition-all">
+                    Финальный шаг: Полный Шаблон <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
         </section>
 
-        <!-- Шаг 7 -->
+        <!-- Шаг 7: Полный шаблон (все функции) -->
         <section id="step-7" class="glass-panel rounded-3xl p-8 scroll-mt-28 animate-fade">
             <h2 class="text-2xl font-bold text-white"><span class="text-blue-400">7.</span> Готовый шаблон скрипта</h2>
-            <p class="text-gray-400 mt-3">Пример скрипта со всеми элементами, сохранением конфига и ключ-системой.</p>
+            <p class="text-gray-400 mt-3">Этот пример использует <strong>все</strong> доступные функции библиотеки: окно, вкладки, тогглы, кнопки, слайдер и форматированный текст.</p>
             <div class="rounded-xl overflow-hidden border border-blue-500/30 bg-[#0a0a0f] shadow-[0_0_30px_rgba(59,130,246,0.1)] mt-4">
                 <div class="flex items-center justify-between px-4 py-2.5 bg-blue-500/5 border-b border-blue-500/20">
                     <div class="flex gap-2"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
                     <span class="text-xs font-bold text-blue-400 uppercase tracking-widest">ПОЛНЫЙ СКРИПТ LUA</span>
                     <button onclick="copyCode(this)" class="flex items-center gap-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 transition-colors px-4 py-1.5 rounded-lg shadow-lg">
-                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> <span>Скопировать всё</span>
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Скопировать всё
                     </button>
                 </div>
-                <!-- Ячейка заполняется через JS -->
-                <pre class="overflow-x-auto custom-scrollbar" style="max-height: 400px;"><code id="code-step-7" class="language-lua"></code></pre>
+                <pre class="p-5 text-sm text-blue-200 overflow-x-auto" style="max-height: 600px; overflow-y: auto;"><code>local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
+
+local Window = LuminorLib:CreateWindow("Luminor Premium", "UI", "by DADILK", "classic", "Pan1", {
+    keySystem = true,
+    platoboostId = "123456",
+    platoboostApiKey = "your_api_key"
+})
+
+local MainTab = Window:CreateTab("Главная", "home")
+local CombatTab = Window:CreateTab("Бой", "sword")
+local VisualsTab = Window:CreateTab("Визуалы", "eye")
+local SettingsTab = Window:CreateTab("Настройки", "settings")
+
+-- Тогглы
+MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
+    if state then print("Фарм запущен") end
+end)
+
+CombatTab:CreateToggle("Аимбот", "purple", false, "aim", function(state)
+    print("Аимбот:", state)
+end)
+
+VisualsTab:CreateToggle("ESP", "cyan", false, "user", function(state)
+    print("ESP:", state)
+end)
+
+-- Кнопки
+MainTab:CreateButton("Телепорт к боссу", "teleport", function()
+    print("Телепорт...")
+end)
+
+SettingsTab:CreateButton("Сохранить конфиг", "save", function()
+    local json = game:GetService("HttpService"):JSONEncode({volume = 75})
+    writefile("config.json", json)
+end)
+
+-- Слайдер
+SettingsTab:CreateSlider("Громкость", 0, 100, 75, function(v)
+    print("Громкость:", v)
+end)
+
+-- Текст с RichText (вручную)
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(1, -12, 0, 30)
+label.BackgroundTransparency = 1
+label.Text = "&lt;b&gt;LuminorLib v1.2.1&lt;/b&gt; &lt;font color='#c084fc'&gt;активна&lt;/font&gt;"
+label.RichText = true
+label.TextColor3 = Color3.fromRGB(255, 255, 255)
+label.Font = Enum.Font.SourceSansBold
+label.TextSize = 14
+label.Parent = MainTab.Scroll  -- В реальном коде: MainTab:CreateLabel(...) или через кастомный метод</code></pre>
             </div>
+            <p class="text-gray-500 text-xs mt-2">Для быстрого добавления текста рекомендуется создать свою функцию-обёртку над <code>TextLabel</code>.</p>
             <div class="mt-6 flex justify-start">
                 <a href="#step-6" class="flex items-center gap-2 text-gray-400 hover:text-white"><i data-lucide="arrow-left" class="w-4 h-4"></i> Назад</a>
             </div>
@@ -293,153 +333,20 @@
         <p>© 2026 <span class="text-purple-400/50">LuminorGui</span>. Создано с любовью для разработчиков.</p>
     </footer>
 
-    <!-- Скрипты с функциями генерации кода -->
     <script>
-        // ==========================================
-        // ФУНКЦИИ ДЛЯ ВОЗВРАТА КОДА
-        // ==========================================
-        
-        function getStep0Code() {
-            return `local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()`;
-        }
+        lucide.createIcons();
 
-        function getStep1Code() {
-            return `local Window = LuminorLib:CreateWindow(
-    "Luminor Premium",   -- Заголовок
-    "Luminor_UI",        -- Имя ScreenGui
-    "by DADILK",         -- Ватермарка
-    "Classic",           -- Цветовая тема
-    "Pan1",              -- Фон (автопоиск Pan1.mp4 / Pan1.png)
-    {
-        keySystem = true,               -- Включить ключ-систему
-        platoboostId = "123456",        -- Ваш ID проекта
-        platoboostApiKey = "key_abcde"  -- Ваш API ключ
-    }
-)`;
-        }
-
-        function getStep2Code() {
-            return `-- Обычная вкладка
-local MainTab = Window:CreateTab("Главная", "home")
--- Компактная вкладка с иконкой
-local SettingsTab = Window:CreateTab("", "settings")`;
-        }
-
-        function getStep3Code() {
-            return `MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
-    print("Авто-Фарм: " .. tostring(state))
-end)
-
-MainTab:CreateToggle("", "purple", false, "eye", function(state)
-    print("ESP: " .. tostring(state))
-end)`;
-        }
-
-        function getStep4Code() {
-            return `MainTab:CreateButton("Телепорт к боссу", "teleport", function()
-    print("Телепортация...")
-end)
-
-MainTab:CreateButton("", "trash", function()
-    print("Конфиг очищен!")
-end)`;
-        }
-
-        function getStep5Code() {
-            return `MainTab:CreateSlider("Громкость", 0, 100, 50, function(value)
-    print("Громкость: " .. value)
-end)
-
-MainTab:CreateSlider("", 1, 10, 5, function(value)
-    print("Уровень: " .. value)
-end)`;
-        }
-
-        function getStep6Code() {
-            return `MainTab:CreateMarkdown(
-    "<b>Привет</b> <font color='#c084fc'>LuminorLib</font>!<br>" ..
-    "<i>Версия 1.2.1</i> — <u>обновление</u>."
-)
-
-MainTab:CreateMarkdown("Обычный текст без тегов.")`;
-        }
-
-        function getStep7Code() {
-            return `local LuminorLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/dimkaproska70-hash/LuminorGui/main/Lib.lua"))()
-
-local Window = LuminorLib:CreateWindow("Luminor Premium", "UI", "by DADILK", "classic", "Pan1", {
-    keySystem = true,
-    platoboostId = "123456",
-    platoboostApiKey = "your_api_key"
-})
-
-local MainTab = Window:CreateTab("Главная", "home")
-local CombatTab = Window:CreateTab("Бой", "sword")
-local SettingsTab = Window:CreateTab("Настройки", "settings")
-
-MainTab:CreateToggle("Авто-Фарм", "green", false, "farm", function(state)
-    if state then print("Фарм запущен") end
-end)
-
-MainTab:CreateButton("Телепорт", "teleport", function()
-    print("Телепорт...")
-end)
-
-MainTab:CreateMarkdown("<b>Готово!</b> <font color='#c084fc'>Добро пожаловать</font>")
-
-CombatTab:CreateToggle("Аимбот", "purple", false, "aim", function(state)
-    print("Аимбот:", state)
-end)
-
-SettingsTab:CreateSlider("Громкость", 0, 100, 75, function(v)
-    print("Громкость:", v)
-end)
-
-SettingsTab:CreateButton("Сохранить", "save", function()
-    writefile("config.json", game:GetService("HttpService"):JSONEncode({volume = 75}))
-end)`;
-        }
-
-        // ==========================================
-        // ИНИЦИАЛИЗАЦИЯ И ВНЕДРЕНИЕ КОДА
-        // ==========================================
-
-        function injectCodes() {
-            document.getElementById('code-step-0').textContent = getStep0Code();
-            document.getElementById('code-step-1').textContent = getStep1Code();
-            document.getElementById('code-step-2').textContent = getStep2Code();
-            document.getElementById('code-step-3').textContent = getStep3Code();
-            document.getElementById('code-step-4').textContent = getStep4Code();
-            document.getElementById('code-step-5').textContent = getStep5Code();
-            document.getElementById('code-step-6').textContent = getStep6Code();
-            document.getElementById('code-step-7').textContent = getStep7Code();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Сначала внедряем код в блоки
-            injectCodes();
-            
-            // Затем инициализируем иконки и подсветку синтаксиса
-            lucide.createIcons();
-            hljs.highlightAll();
-        });
-
-        // Функция копирования
         function copyCode(btn) {
             const container = btn.closest('.rounded-xl');
-            const code = container.querySelector('code').textContent.trim();
-            
-            const originalHTML = btn.innerHTML;
-            const originalClass = btn.className;
-
+            const code = container.querySelector('code').innerText.trim();
             navigator.clipboard.writeText(code).then(() => {
+                const originalHTML = btn.innerHTML;
                 btn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i> <span>Скопировано!</span>';
                 btn.className = 'flex items-center gap-1.5 text-xs font-bold text-white bg-emerald-500 px-3 py-1 rounded-lg shadow-lg';
                 lucide.createIcons();
-                
                 setTimeout(() => {
                     btn.innerHTML = originalHTML;
-                    btn.className = originalClass;
+                    btn.className = 'flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 rounded hover:bg-white/10';
                     lucide.createIcons();
                 }, 2000);
             });
